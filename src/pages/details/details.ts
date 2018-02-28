@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 
 /**
@@ -24,11 +24,10 @@ export class DetailsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public pokeService: PokeServiceProvider,
-    public loadingController: LoadingController
+    public pokeService: PokeServiceProvider
   ) {
     this.pokeUrl = navParams.get('pokeUrl');
-    this.showLoading();
+    this.pokeService.showLoading();
     this.pokeService.loadAPIResource(this.pokeUrl)
       .subscribe(response => {
         this.obj = response;
@@ -48,25 +47,11 @@ export class DetailsPage {
       },
       error => console.error(error),
       () => {
-        this.hideLoading();
+        this.pokeService.hideLoading();
       });
   }
 
   ionViewDidLoad() {
 
-  }
-
-  showLoading() {
-    this.loader = this.loadingController.create({
-      spinner: "crescent",
-      showBackdrop: true,
-    });
-    this.loader.present();
-  }
-
-  hideLoading() {
-    if(this.loader){
-      this.loader.dismiss();
-    }
   }
 }

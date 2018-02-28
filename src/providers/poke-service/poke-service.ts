@@ -1,3 +1,4 @@
+import { LoadingController } from 'ionic-angular';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -12,14 +13,30 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PokeServiceProvider {
 
-  constructor(public http: HttpClient) {
+  private loader: any;
 
+  constructor(
+    public http: HttpClient,
+    public loading: LoadingController
+  ) {
   }
 
   loadAPIResource(url, search?: HttpParams) {
     return this.http.get(url, {
       params: search
     })
+  }
+
+  showLoading() {
+    this.loader = this.loading.create({
+      spinner: "crescent",
+      showBackdrop: true,
+    });
+    this.loader.present();
+  }
+
+  hideLoading() {
+    this.loader.dismiss();
   }
 
 }

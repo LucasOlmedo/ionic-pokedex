@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { LoadingController, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 
 @Component({
@@ -17,14 +17,13 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    public pokeService: PokeServiceProvider,
-    public loadingController: LoadingController
+    public pokeService: PokeServiceProvider
   ) {
     this.getPokes(this.url + 'pokemon/');
   }
 
   getPokes(url) {
-    this.showLoading();
+    this.pokeService.showLoading();
     this.pokeService.loadAPIResource(url)
       .subscribe(response => {
         this.obj = response;
@@ -37,7 +36,7 @@ export class HomePage {
       },
       error => console.error(error),
       () => {
-        this.hideLoading()
+        this.pokeService.hideLoading()
       });
   }
 
@@ -73,17 +72,5 @@ export class HomePage {
         });
 
     }, 500);
-  }
-
-  showLoading() {
-    this.loader = this.loadingController.create({
-      spinner: "crescent",
-      showBackdrop: true
-    });
-    this.loader.present();
-  }
-
-  hideLoading() {
-    this.loader.dismiss();
   }
 }
