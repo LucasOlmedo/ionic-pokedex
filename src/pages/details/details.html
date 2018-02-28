@@ -37,8 +37,8 @@
         </div>
         <div ion-item>
           <ion-icon name="pricetags" item-start></ion-icon>
-          <ion-badge *ngFor="let type of poke?.types" [color]="this.typeColor(type?.type?.name)">
-            {{type?.type?.name}} &nbsp;
+          <ion-badge *ngFor="let type of poke?.types" [color]="typeColor(type?.type?.name)" style="margin-right: 5px;">
+            {{type?.type?.name}}
           </ion-badge>
         </div>
       </ion-list>

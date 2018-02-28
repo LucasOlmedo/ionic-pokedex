@@ -37,7 +37,7 @@ export class DetailsPage {
           weight: this.obj.weight,
           height: this.obj.height,
           img: this.obj.sprites.front_default,
-          types: this.obj.types,
+          types: this.obj.types.reverse(),
           formatted: {
             title: `#${this.obj.id} - ${this.obj.name}`,
             name: `${this.obj.name}`,
@@ -69,86 +69,45 @@ export class DetailsPage {
   }
 
   typeColor(type) {
-    let pokemonType: any = type;
-    let classColor: any;
-
-    switch (pokemonType) {
+    switch (type) {
       case 'normal':
-        classColor = 'type-normal';
-        break;
-
+        return 'type-normal';
       case 'fire':
-        classColor = 'type-fire';
-        break;
-
+        return 'type-fire';
       case 'water':
-        classColor = 'type-water';
-        break;
-
+        return 'type-water';
       case 'electric':
-        classColor = 'type-electric';
-        break;
-
+        return 'type-electric';
       case 'grass':
-        classColor = 'type-grass';
-        break;
-
+        return 'type-grass';
       case 'ice':
-        classColor = 'type-ice';
-        break;
-
+        return 'type-ice';
       case 'fighting':
-        classColor = 'type-fighting';
-        break;
-
+        return 'type-fighting';
       case 'poison':
-        classColor = 'type-poison';
-        break;
-
+        return 'type-poison';
       case 'ground':
-        classColor = 'type-ground';
-        break;
-
+        return 'type-ground';
       case 'flying':
-        classColor = 'type-flying';
-        break;
-
+       return 'type-flying';
       case 'psychic':
-        classColor = 'type-psychic';
-        break;
-
+       return 'type-psychic';
       case 'bug':
-        classColor = 'type-bug';
-        break;
-
+       return 'type-bug';
       case 'rock':
-        classColor = 'type-rock';
-        break;
-
+       return 'type-rock';
       case 'ghost':
-        classColor = 'type-ghost';
-        break;
-
+       return 'type-ghost';
       case 'dragon':
-        classColor = 'type-dragon';
-        break;
-
+       return 'type-dragon';
       case 'dark':
-        classColor = 'type-dark';
-        break;
-
+       return 'type-dark';
       case 'steel':
-        classColor = 'type-steel';
-        break;
-
+       return 'type-steel';
       case 'fairy':
-        classColor = 'type-fairy';
-        break;
-
+       return 'type-fairy';
       default:
         break;
     }
-
-    console.log(classColor);
   }
 }
