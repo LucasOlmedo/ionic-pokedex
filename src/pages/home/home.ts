@@ -24,23 +24,26 @@ export class HomePage {
 
   getPokes(url) {
     this.showLoading();
-    this.pokeService.load(url)
-      .then((data: Response) => {
-          this.hideLoading();
-          this.obj = data;
-          this.pokes = this.obj.results;
-          this.controls = {
-            count: this.obj.count,
-            previous: this.obj.previous,
-            next: this.obj.next
-          }
+    this.pokeService.loadAPIResource(url)
+      .subscribe(response => {
+        this.obj = response;
+        this.pokes = this.obj.results;
+        this.controls = {
+          count: this.obj.count,
+          previous: this.obj.previous,
+          next: this.obj.next
+        };
+      },
+      error => console.error(error),
+      () => {
+        this.hideLoading()
       });
   }
 
   getDetails(pokeUrl) {
     this.navCtrl.push("DetailsPage", {
       pokeUrl: pokeUrl
-    })
+    });
   }
 
   showLoading() {
@@ -53,8 +56,6 @@ export class HomePage {
   }
 
   hideLoading() {
-    if(this.loader){
-      this.loader.dismiss();
-    }
+    this.loader.dismiss();
   }
 }

@@ -12,34 +12,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PokeServiceProvider {
 
-  public data: any;
-
   constructor(public http: HttpClient) {
-    console.log('Hello PokeServiceProvider Provider');
+
   }
 
-  load(url) {
-    if (this.data) {
-      return Promise.resolve(this.data);
-    }
-
-    return new Promise(resolve => {
-      this.http.get(url)
-        .subscribe((response: Response) => {
-          this.data = response;
-          resolve(this.data);
-        });
-    });
-  }
-
-  getDetails(pokeUrl) {
-    return new Promise(resolve => {
-      this.http.get(pokeUrl)
-        .subscribe((response: Response) => {
-          this.data = response;
-          resolve(this.data);
-        });
-    })
+  loadAPIResource(url) {
+    return this.http.get(url)
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoadingController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 
 /**
@@ -19,22 +19,30 @@ export class DetailsPage {
   public pokeUrl;
   public obj: any;
   public poke: any;
+  public loader: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public pokeService: PokeServiceProvider
+    public pokeService: PokeServiceProvider,
+    public loadingController: LoadingController
   ) {
     this.pokeUrl = navParams.get('pokeUrl');
-    this.pokeService.getDetails(this.pokeUrl)
-      .then((data: Response) => {
-        this.obj = data;
+    this.showLoading();
+    this.pokeService.loadAPIResource(this.pokeUrl)
+      .subscribe(response => {
+        this.obj = response;
         this.poke = {
           id: this.obj.id,
           name: this.obj.name,
           weight: this.obj.weight,
-          height: this.obj.height
-        }
+          height: this.obj.height,
+          formattedTitle: `#${this.obj.id} - ${this.obj.name}`
+        };
+      },
+      error => console.error(error),
+      () => {
+        this.hideLoading();
       });
   }
 
@@ -42,4 +50,17 @@ export class DetailsPage {
     console.log(this.poke);
   }
 
+  showLoading() {
+    this.loader = this.loadingController.create({
+      spinner: "crescent",
+      showBackdrop: true,
+    });
+    this.loader.present();
+  }
+
+  hideLoading() {
+    if(this.loader){
+      this.loader.dismiss();
+    }
+  }
 }
