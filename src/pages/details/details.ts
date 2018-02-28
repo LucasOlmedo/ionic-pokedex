@@ -37,11 +37,12 @@ export class DetailsPage {
           weight: this.obj.weight,
           height: this.obj.height,
           img: this.obj.sprites.front_default,
+          types: this.obj.types,
           formatted: {
             title: `#${this.obj.id} - ${this.obj.name}`,
-            name: `Name: ${this.obj.name}`,
-            height: `Height: ${this.obj.height}`,
-            weight: `Weight: ${this.obj.weight}`,
+            name: `${this.obj.name}`,
+            height: `${this.formatHeightWeight(this.obj.height)} m`,
+            weight: `${this.formatHeightWeight(this.obj.weight)} Kg`,
           }
         };
       },
@@ -53,5 +54,101 @@ export class DetailsPage {
 
   ionViewDidLoad() {
 
+  }
+
+  formatHeightWeight(value) {
+    let formatted = value.toString();
+    let last = formatted.slice(-1);
+    let lastIndex = formatted.lastIndexOf(last);
+
+    if(formatted.length > 1){
+      return formatted.substr(0, lastIndex) + `.${last}`;
+    }else{
+      return formatted.substr(0, lastIndex) + `0.${last}`;
+    }
+  }
+
+  typeColor(type) {
+    let pokemonType: any = type;
+    let classColor: any;
+
+    switch (pokemonType) {
+      case 'normal':
+        classColor = 'type-normal';
+        break;
+
+      case 'fire':
+        classColor = 'type-fire';
+        break;
+
+      case 'water':
+        classColor = 'type-water';
+        break;
+
+      case 'electric':
+        classColor = 'type-electric';
+        break;
+
+      case 'grass':
+        classColor = 'type-grass';
+        break;
+
+      case 'ice':
+        classColor = 'type-ice';
+        break;
+
+      case 'fighting':
+        classColor = 'type-fighting';
+        break;
+
+      case 'poison':
+        classColor = 'type-poison';
+        break;
+
+      case 'ground':
+        classColor = 'type-ground';
+        break;
+
+      case 'flying':
+        classColor = 'type-flying';
+        break;
+
+      case 'psychic':
+        classColor = 'type-psychic';
+        break;
+
+      case 'bug':
+        classColor = 'type-bug';
+        break;
+
+      case 'rock':
+        classColor = 'type-rock';
+        break;
+
+      case 'ghost':
+        classColor = 'type-ghost';
+        break;
+
+      case 'dragon':
+        classColor = 'type-dragon';
+        break;
+
+      case 'dark':
+        classColor = 'type-dark';
+        break;
+
+      case 'steel':
+        classColor = 'type-steel';
+        break;
+
+      case 'fairy':
+        classColor = 'type-fairy';
+        break;
+
+      default:
+        break;
+    }
+
+    console.log(classColor);
   }
 }

@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Details</ion-title>
   </ion-navbar>
 
@@ -18,13 +18,30 @@
     <ion-card-content>
       <ion-card-title>
         <ion-title text-capitalize text-center>
-          {{poke?.formatted?.title}}
+          <h1>{{poke?.formatted?.title}}</h1>
         </ion-title>
       </ion-card-title>
       <img src="{{poke?.img}}">
-      <p text-capitalize>{{poke?.formatted?.name}}</p>
-      <p text-capitalize>{{poke?.formatted?.height}}</p>
-      <p text-capitalize>{{poke?.formatted?.weight}}</p>
+      <ion-list>
+        <div ion-item>
+          <ion-icon name="clipboard" item-start></ion-icon>
+          <span text-capitalize>{{poke?.formatted?.name}}</span>
+        </div>
+        <div ion-item>
+          <ion-icon name="resize" item-start></ion-icon>
+          <span>{{poke?.formatted?.height}}</span>
+        </div>
+        <div ion-item>
+          <ion-icon name="pint" item-start></ion-icon>
+          <span>{{poke?.formatted?.weight}}</span>
+        </div>
+        <div ion-item>
+          <ion-icon name="pricetags" item-start></ion-icon>
+          <ion-badge *ngFor="let type of poke?.types" [color]="this.typeColor(type?.type?.name)">
+            {{type?.type?.name}} &nbsp;
+          </ion-badge>
+        </div>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
