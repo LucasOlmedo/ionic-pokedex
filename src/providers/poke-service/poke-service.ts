@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/map';
@@ -16,8 +16,10 @@ export class PokeServiceProvider {
 
   }
 
-  loadAPIResource(url) {
-    return this.http.get(url)
+  loadAPIResource(url, search?: HttpParams) {
+    return this.http.get(url, {
+      params: search
+    })
   }
 
 }

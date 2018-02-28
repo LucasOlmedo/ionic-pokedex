@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { LoadingController, NavController } from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
@@ -12,14 +13,14 @@ export class HomePage {
   public pokes: any[];
   public controls: any;
   public loader: any;
-  public urlAll = 'https://pokeapi.co/api/v2/pokemon/';
+  public url = 'https://pokeapi.co/api/v2/';
 
   constructor(
     public navCtrl: NavController,
     public pokeService: PokeServiceProvider,
     public loadingController: LoadingController
   ) {
-    this.getPokes(this.urlAll);
+    this.getPokes(this.url + 'pokemon/');
   }
 
   getPokes(url) {
@@ -46,11 +47,38 @@ export class HomePage {
     });
   }
 
+  doInfinite(scroll) {
+    setTimeout(() => {
+      let urlParams = new URL(this.controls.next).searchParams;
+      let requestParams = new HttpParams()
+        .set('limit', urlParams.get('limit'))
+        .set('offset', urlParams.get('offset'));
+
+      this.pokeService.loadAPIResource(this.url + 'pokemon/', requestParams)
+        .subscribe(response => {
+          this.obj = response;
+          this.controls = {
+            count: this.obj.count,
+            previous: this.obj.previous,
+            next: this.obj.next
+          }
+
+          for (let index = 0; index < this.obj.results.length; index++) {
+            this.pokes.push(this.obj.results[index]);
+          }
+        },
+        error => console.log(error),
+        () => {
+          scroll.complete();
+        });
+
+    }, 500);
+  }
+
   showLoading() {
     this.loader = this.loadingController.create({
       spinner: "crescent",
-      showBackdrop: true,
-      dismissOnPageChange: true
+      showBackdrop: true
     });
     this.loader.present();
   }

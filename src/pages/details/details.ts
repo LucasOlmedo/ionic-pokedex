@@ -48,13 +48,12 @@ export class DetailsPage {
       },
       error => console.error(error),
       () => {
-        console.log(this.obj)
         this.hideLoading();
       });
   }
 
   ionViewDidLoad() {
-    console.log(this.poke);
+
   }
 
   showLoading() {
