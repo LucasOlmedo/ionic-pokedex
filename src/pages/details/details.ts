@@ -37,11 +37,18 @@ export class DetailsPage {
           name: this.obj.name,
           weight: this.obj.weight,
           height: this.obj.height,
-          formattedTitle: `#${this.obj.id} - ${this.obj.name}`
+          img: this.obj.sprites.front_default,
+          formatted: {
+            title: `#${this.obj.id} - ${this.obj.name}`,
+            name: `Name: ${this.obj.name}`,
+            height: `Height: ${this.obj.height}`,
+            weight: `Weight: ${this.obj.weight}`,
+          }
         };
       },
       error => console.error(error),
       () => {
+        console.log(this.obj)
         this.hideLoading();
       });
   }

@@ -18,9 +18,13 @@
     <ion-card-content>
       <ion-card-title>
         <ion-title text-capitalize text-center>
-          {{poke?.formattedTitle}}
+          {{poke?.formatted?.title}}
         </ion-title>
       </ion-card-title>
+      <img src="{{poke?.img}}">
+      <p text-capitalize>{{poke?.formatted?.name}}</p>
+      <p text-capitalize>{{poke?.formatted?.height}}</p>
+      <p text-capitalize>{{poke?.formatted?.weight}}</p>
     </ion-card-content>
   </ion-card>
 
