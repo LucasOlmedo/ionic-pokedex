@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 
 /**
@@ -15,42 +15,34 @@ import { PokeServiceProvider } from './../../providers/poke-service/poke-service
   templateUrl: 'details.html',
 })
 export class DetailsPage {
+  @ViewChild('spinner') spinner: any;
 
   public pokeUrl;
   public obj: any;
-  public poke: any;
+  public pokeDetails: any;
   public loader: any;
+  public pageLoaded: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public pokeService: PokeServiceProvider
+    public pokeService: PokeServiceProvider,
   ) {
     this.pokeUrl = navParams.get('pokeUrl');
-    this.pokeService.showLoading();
     this.pokeService.loadAPIResource(this.pokeUrl)
       .subscribe(response => {
         this.obj = response;
-        this.poke = {
+        this.pokeDetails = {
           id: this.obj.id,
           name: this.obj.name,
           weight: this.obj.weight,
           height: this.obj.height,
-          img: this.obj.sprites.front_default,
+          img: this.obj.sprites.front_default.toString(),
           types: this.obj.types.reverse(),
-          formatted: {
-            title: `#${this.obj.id} - ${this.obj.name}`,
-            name: `${this.obj.name}`,
-            height: `${this.formatHeightWeight(this.obj.height)} m`,
-            weight: `${this.formatHeightWeight(this.obj.weight)} Kg`,
-          }
         };
         this.loadPokeDescription(this.obj.species.url);
       },
-      error => console.error(error),
-      () => {
-        this.pokeService.hideLoading();
-      });
+      error => console.error(error));
   }
 
   loadPokeDescription(speciesUrl){
@@ -59,73 +51,27 @@ export class DetailsPage {
       .subscribe(response => {
         species = response;
         let flavorTextEntries = species.flavor_text_entries;
-        let gameVersion = flavorTextEntries.filter((item) => {
-          return item.version.name == 'firered';
-        });
-        let englishText = gameVersion.filter((version) => {
+        let englishText = flavorTextEntries.filter((version) => {
           return version.language.name == 'en';
         });
-        this.poke.formatted.description = `${englishText[0].flavor_text.toString()}`;
+        let englishTextGroup = englishText.map((item) => {
+          return {
+            game_version: item.version.name.toString().replace("-", " "),
+            description: item.flavor_text
+          };
+        });
+        this.pokeDetails.dex = englishTextGroup;
+        return this.pokeDetails;
       },
-      error => console.error(error));
+      error => console.error(error),
+      () => {
+        let spinnerNative = this.spinner._elementRef.nativeElement;
+        spinnerNative.style.display = 'none';
+        this.pageLoaded = true;
+      });
   }
 
   ionViewDidLoad() {
 
-  }
-
-  formatHeightWeight(value) {
-    let formatted = value.toString();
-    let last = formatted.slice(-1);
-    let lastIndex = formatted.lastIndexOf(last);
-
-    if(formatted.length > 1){
-      return formatted.substr(0, lastIndex) + `.${last}`;
-    }else{
-      return formatted.substr(0, lastIndex) + `0.${last}`;
-    }
-  }
-
-  typeColor(type) {
-    switch (type) {
-      case 'normal':
-        return 'type-normal';
-      case 'fire':
-        return 'type-fire';
-      case 'water':
-        return 'type-water';
-      case 'electric':
-        return 'type-electric';
-      case 'grass':
-        return 'type-grass';
-      case 'ice':
-        return 'type-ice';
-      case 'fighting':
-        return 'type-fighting';
-      case 'poison':
-        return 'type-poison';
-      case 'ground':
-        return 'type-ground';
-      case 'flying':
-       return 'type-flying';
-      case 'psychic':
-       return 'type-psychic';
-      case 'bug':
-       return 'type-bug';
-      case 'rock':
-       return 'type-rock';
-      case 'ghost':
-       return 'type-ghost';
-      case 'dragon':
-       return 'type-dragon';
-      case 'dark':
-       return 'type-dark';
-      case 'steel':
-       return 'type-steel';
-      case 'fairy':
-       return 'type-fairy';
-      default:
-        break;
-    }
   }
 }

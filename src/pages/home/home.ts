@@ -14,6 +14,7 @@ export class HomePage {
   public controls: any;
   public loader: any;
   public url = 'https://pokeapi.co/api/v2/';
+  public hasMoreData: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -23,7 +24,7 @@ export class HomePage {
   }
 
   getPokes(url) {
-    this.pokeService.showLoading();
+    // this.pokeService.showLoading();
     this.pokeService.loadAPIResource(url)
       .subscribe(response => {
         this.obj = response;
@@ -36,7 +37,7 @@ export class HomePage {
       },
       error => console.error(error),
       () => {
-        this.pokeService.hideLoading()
+        // this.pokeService.hideLoading()
       });
   }
 
@@ -61,7 +62,6 @@ export class HomePage {
             previous: this.obj.previous,
             next: this.obj.next
           }
-
           for (let index = 0; index < this.obj.results.length; index++) {
             this.pokes.push(this.obj.results[index]);
           }
@@ -70,7 +70,6 @@ export class HomePage {
         () => {
           scroll.complete();
         });
-
     }, 500);
   }
 }

@@ -9,13 +9,21 @@
 
 <ion-content padding>
 
+    <!-- <ion-spinner name="crescent" style="
+      margin:auto;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      position:fixed;
+    "></ion-spinner> -->
   <ion-list>
     <ion-item *ngFor="let poke of pokes" (tap)="getDetails(poke?.url)">
       <h2 text-capitalize>{{poke?.name}}</h2>
     </ion-item>
   </ion-list>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll (ionInfinite)="controls.next != null ? doInfinite($event) : $event.complete()">
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

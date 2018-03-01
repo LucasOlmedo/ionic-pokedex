@@ -1,0 +1,44 @@
+<ion-card>
+    <ion-card-title margin-top>
+      <ion-title text-capitalize text-center text-wrap>
+        #{{pokeDetails.id}} {{pokeDetails.name}}
+      </ion-title>
+    </ion-card-title>
+    <div ion-item text-center>
+      <ion-img width="165" height="165" style="background:transparent !important;" src="{{pokeDetails.img}}"></ion-img>
+    </div>
+    <ion-card-content>
+      <div ion-item>
+        <ion-icon name="paper" item-start></ion-icon>
+      </div>
+      <ion-slides margin-top>
+        <ion-slide *ngFor="let dex of pokeDetails.dex">
+          <h2 text-capitalize text-wrap>{{dex.game_version}}</h2>
+          <hr>
+          <p text-justify text-wrap padding>{{dex.description}}</p>
+        </ion-slide>
+      </ion-slides>
+      <ion-item-divider margin-bottom></ion-item-divider>
+      <ion-list>
+        <div ion-item>
+          <ion-icon name="clipboard" item-start></ion-icon>
+          <span text-capitalize text-wrap>{{pokeDetails.name}}</span>
+        </div>
+        <div ion-item>
+          <ion-icon name="resize" item-start></ion-icon>
+          <span>{{formatHeightWeight(pokeDetails.height)}}</span>
+        </div>
+        <div ion-item>
+          <ion-icon name="pint" item-start></ion-icon>
+          <span>{{formatHeightWeight(pokeDetails.weight)}}</span>
+        </div>
+        <div ion-item>
+          <ion-icon name="pricetags" item-start></ion-icon>
+          <ion-badge *ngFor="let type of pokeDetails.types" [color]="typeColor(type.type.name)" style="margin-right: 5px;">
+            {{type.type.name}}
+          </ion-badge>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+

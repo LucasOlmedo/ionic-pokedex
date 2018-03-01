@@ -14,48 +14,15 @@
 
 <ion-content padding>
 
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        <ion-title text-capitalize text-center text-wrap>
-          <h1>{{poke?.formatted?.title}}</h1>
-          <hr>
-        </ion-title>
-      </ion-card-title>
-      <img src="{{poke?.img}}">
-      <ion-list>
-        <div ion-item>
-          <ion-icon name="clipboard" item-start></ion-icon>
-          <span text-capitalize>{{poke?.formatted?.name}}</span>
-        </div>
-        <div ion-item>
-          <ion-icon name="resize" item-start></ion-icon>
-          <span>{{poke?.formatted?.height}}</span>
-        </div>
-        <div ion-item>
-          <ion-icon name="pint" item-start></ion-icon>
-          <span>{{poke?.formatted?.weight}}</span>
-        </div>
-        <div ion-item>
-          <ion-icon name="pricetags" item-start></ion-icon>
-          <ion-badge *ngFor="let type of poke?.types" [color]="typeColor(type?.type?.name)" style="margin-right: 5px;">
-            {{type?.type?.name}}
-          </ion-badge>
-        </div>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <ion-spinner #spinner name="crescent" style="
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position:fixed;
+  "></ion-spinner>
 
-  <ion-card>
-    <ion-card-header>
-      <h2>Description</h2>
-      <hr>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item text-wrap>
-        {{poke?.formatted?.description}}
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <poke-details *ngIf="pageLoaded" [pokeDetails]="pokeDetails"></poke-details>
 
 </ion-content>
