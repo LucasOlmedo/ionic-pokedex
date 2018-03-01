@@ -45,11 +45,29 @@ export class DetailsPage {
             weight: `${this.formatHeightWeight(this.obj.weight)} Kg`,
           }
         };
+        this.loadPokeDescription(this.obj.species.url);
       },
       error => console.error(error),
       () => {
         this.pokeService.hideLoading();
       });
+  }
+
+  loadPokeDescription(speciesUrl){
+    var species: any;
+    this.pokeService.loadAPIResource(speciesUrl)
+      .subscribe(response => {
+        species = response;
+        let flavorTextEntries = species.flavor_text_entries;
+        let gameVersion = flavorTextEntries.filter((item) => {
+          return item.version.name == 'firered';
+        });
+        let englishText = gameVersion.filter((version) => {
+          return version.language.name == 'en';
+        });
+        this.poke.formatted.description = `${englishText[0].flavor_text.toString()}`;
+      },
+      error => console.error(error));
   }
 
   ionViewDidLoad() {

@@ -17,8 +17,9 @@
   <ion-card>
     <ion-card-content>
       <ion-card-title>
-        <ion-title text-capitalize text-center>
+        <ion-title text-capitalize text-center text-wrap>
           <h1>{{poke?.formatted?.title}}</h1>
+          <hr>
         </ion-title>
       </ion-card-title>
       <img src="{{poke?.img}}">
@@ -42,6 +43,18 @@
           </ion-badge>
         </div>
       </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <h2>Description</h2>
+      <hr>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item text-wrap>
+        {{poke?.formatted?.description}}
+      </ion-item>
     </ion-card-content>
   </ion-card>
 

@@ -10,7 +10,7 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item *ngFor="let poke of pokes" (click)="getDetails(poke?.url)">
+    <ion-item *ngFor="let poke of pokes" (tap)="getDetails(poke?.url)">
       <h2 text-capitalize>{{poke?.name}}</h2>
     </ion-item>
   </ion-list>
