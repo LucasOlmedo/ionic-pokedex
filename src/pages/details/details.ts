@@ -37,7 +37,7 @@ export class DetailsPage {
           name: this.obj.name,
           weight: this.obj.weight,
           height: this.obj.height,
-          img: this.obj.sprites.front_default.toString(),
+          img: this.obj.sprites.front_default,
           types: this.obj.types.reverse(),
           stats: this.obj.stats.reverse(),
         };
@@ -57,6 +57,7 @@ export class DetailsPage {
         });
         let englishTextGroup = englishText.map((item) => {
           return {
+            class: item.version.name,
             game_version: item.version.name.toString().replace("-", " "),
             description: item.flavor_text
           };

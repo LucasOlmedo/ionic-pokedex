@@ -30,6 +30,69 @@ export class PokeDetailsComponent {
     }
   }
 
+  gameVersionColor(version) {
+    switch (version) {
+      case 'red':
+        return 'version-red';
+      case 'blue':
+        return 'version-blue';
+      case 'yellow':
+        return 'version-yellow';
+      case 'gold':
+        return 'version-gold';
+      case 'silver':
+        return 'version-silver';
+      case 'crystal':
+        return 'version-crystal';
+      case 'ruby':
+        return 'version-ruby';
+      case 'sapphire':
+        return 'version-sapphire';
+      case 'emerald':
+        return 'version-emerald';
+      case 'firered':
+        return 'version-firered';
+      case 'leafgreen':
+        return 'version-leafgreen';
+      case 'diamond':
+        return 'version-diamond';
+      case 'pearl':
+        return 'version-pearl';
+      case 'platinum':
+        return 'version-platinum';
+      case 'heartgold':
+        return 'version-heartgold';
+      case 'soulsilver':
+        return 'version-soulsilver';
+      case 'black':
+        return 'version-black';
+      case 'white':
+        return 'version-white';
+      case 'colosseum':
+        return 'version-colosseum';
+      case 'xd':
+        return 'version-xd';
+      case 'black-2':
+        return 'version-black-2';
+      case 'white-2':
+        return 'version-white-2';
+      case 'x':
+        return 'version-x';
+      case 'y':
+        return 'version-y';
+      case 'omega-ruby':
+        return 'version-omega-ruby';
+      case 'alpha-sapphire':
+        return 'version-alpha-sapphire';
+      case 'sun':
+        return 'version-sun';
+      case 'moon':
+        return 'version-moon';
+      default:
+        break;
+    }
+  }
+
   statColor(stat) {
     switch (stat) {
       case 'hp':

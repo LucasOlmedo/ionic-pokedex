@@ -1,16 +1,16 @@
+/*pokemonsprite image   */
+.swiper-slide {
+  display: block !important;
+}
+
+.swiper-wrapper {
+  height: initial !important;
+}
+
 .pokemon-sprite {
   width: 145px;
   margin: auto;
 }
-
-// progress {
-//   width: 100% !important;
-//   vertical-align: middle !important;
-//   border: 0 !important;
-//   height: 8px !important;
-//   background-color: #ccc;
-// }
-
 
 /* progress */
 
@@ -21,7 +21,6 @@ progress {
   height: 8px;
   width: 100%;
   vertical-align: middle;
-  border-radius: 2px;
 }
 
 progress::-webkit-progress-inner-element {
@@ -39,23 +38,229 @@ progress::-webkit-progress-bar {
 }
 
 progress.stat-hp::-webkit-progress-value {
-  background-color: green;
+  background-color: forestgreen;
+  border-radius: 10px;
 }
 progress.stat-attack::-webkit-progress-value {
-  background-color: red;
+  background-color: firebrick;
+  border-radius: 10px;
 }
 progress.stat-defense::-webkit-progress-value {
-  background-color: blue;
+  background-color: navy;
+  border-radius: 10px;
 }
 progress.stat-special-attack::-webkit-progress-value {
-  background-color: orange;
+  background-color: darkorange;
+  border-radius: 10px;
 }
 progress.stat-special-defense::-webkit-progress-value {
-  background-color: purple;
+  background-color: darkviolet;
+  border-radius: 10px;
 }
 progress.stat-speed::-webkit-progress-value {
-  background-color: cyan;
+  background-color: deepskyblue;
+  border-radius: 10px;
 }
+
+/* dex slides */
+
+.version-alpha-sapphire {
+  background: linear-gradient(to right bottom, #1768d1 50%, #125cbc 50%);
+}
+.version-alpha-sapphire h2, .version-alpha-sapphire p > span{ 
+  color: gainsboro;
+}
+
+.version-omega-ruby {
+  background: linear-gradient(to right bottom, #cf3025 50%, #bc2c21 50%);
+}
+.version-omega-ruby h2, .version-omega-ruby p > span{
+  color: gainsboro;
+}
+
+.version-x {
+  background: linear-gradient(to right bottom, #6376b8 50%, #5365a3 50%);
+}
+.version-x h2, .version-x p > span{
+  color: gainsboro;
+}
+
+.version-y {
+  background: linear-gradient(to right bottom, #ed5540 50%, #d14734 50%);
+}
+.version-y h2, .version-y p > span{
+  color: gainsboro;
+}
+
+.version-white {
+  background: linear-gradient(to right bottom, #fff 50%, #ececec 50%);
+}
+.version-white h2, .version-white p > span{
+  color: #222;
+}
+
+.version-black {
+  background: linear-gradient(to right bottom, #0c0c0c 50%, #000 50%);
+}
+.version-black h2, .version-black p > span{
+  color: gainsboro;
+}
+
+.version-white-2 {
+  background: linear-gradient(to right bottom, #ededed 50%, #dddddd 50%);
+}
+.version-white-2 h2, .version-white-2 p > span{
+  color: #222;
+}
+
+.version-black-2 {
+  background: linear-gradient(to right bottom, #3d3d3d 50%, #353535 50%);
+}
+.version-black-2 h2, .version-black-2 p > span{
+  color: gainsboro;
+}
+
+.version-soulsilver { 
+  background: linear-gradient(to right bottom, #c8c8eb 50%, #c0c0e1 50%);
+}
+.version-soulsilver h2, .version-soulsilver p > span{
+  color: #000;
+}
+
+.version-heartgold { 
+  background: linear-gradient(to right bottom, #927f05 50%, #867400 50%);
+}
+.version-heartgold h2, .version-heartgold p > span{
+  color: #fff; 
+}
+
+.version-platinum { 
+  background: linear-gradient(to right bottom, #746a6a 50%, #685f5f 50%);
+}
+.version-platinum h2, .version-platinum p > span{
+  color: azure;
+}
+
+.version-pearl { 
+  background: linear-gradient(to right bottom, #ffc0c0 50%, #fdb4b4 50%);
+}
+.version-pearl h2, .version-pearl p > span{
+  color: rgb(27, 27, 41);
+}
+
+.version-diamond { 
+  background: linear-gradient(to right bottom, #9c9ceb 50%, #8e8edb 50%);
+} 
+.version-diamond h2, .version-diamond p > span{
+  color: rgb(27, 27, 41);
+}
+
+.version-xd { 
+  background: linear-gradient(to right bottom, #9149ad 50%, #863ca3 50%);
+} 
+.version-xd h2, .version-xd p > span{
+  color: lightcyan;
+}
+
+.version-colloseum { 
+  background: linear-gradient(to right bottom, #a1c1eb 50%, #98b7df 50%);
+} 
+.version-colloseum h2, .version-colloseum p > span{
+  color: rgb(33, 33, 68);
+}
+
+.version-leafgreen { 
+  background: linear-gradient(to right bottom, #40d640 50%, #1ecc1e 50%);
+} 
+.version-leafgreen h2, .version-leafgreen p > span{
+  color: rgb(19, 22, 18);
+}
+
+.version-firered { 
+  background: linear-gradient(to right bottom, #fa3d03 50%, #fa2803 50%);
+} 
+.version-firered h2, .version-firered p > span{
+  color: cornsilk;
+}
+
+.version-emerald { 
+  background: linear-gradient(to right bottom, #2c5a2c 50%, #254e25 50%);
+} 
+.version-emerald h2, .version-emerald p > span{
+  color: lemonchiffon;
+}
+
+.version-sapphire { 
+  background: linear-gradient(to right bottom, #0707b4 50%, #0000a0 50%);
+} 
+.version-sapphire h2, .version-sapphire p > span{
+  color: lightcyan; 
+}
+
+.version-ruby { 
+  background: linear-gradient(to right bottom, #a31818 50%, #a00000 50%);
+} 
+.version-ruby h2, .version-ruby p > span{
+  color: oldlace; 
+}
+
+.version-crystal { 
+  background: linear-gradient(to right bottom, #86e5ff 50%, #63ddff 50%); 
+} 
+.version-crystal h2, .version-crystal p > span{
+  color: #0b2229; 
+}
+
+.version-silver { 
+  background: linear-gradient(to right bottom, #d6d6d6 50%, #c0c0c0 50%);
+} 
+.version-silver h2, .version-silver p > span{
+  color: #2b2b2b; 
+}
+
+.version-gold { 
+  background: linear-gradient(to right bottom, #daa319 50%, #d39a0c 50%);
+} 
+.version-gold h2, .version-gold p > span{
+  color: #1f1b10; 
+}
+
+.version-yellow { 
+  background: linear-gradient(to right bottom, #fcd436 50%, #f7c911 50%);
+} 
+.version-yellow h2, .version-yellow p > span{
+  color: #1b1b19; 
+}
+
+.version-blue { 
+  background: linear-gradient(to right bottom, #2e2eff 50%, #2121ff 50%);
+} 
+.version-blue h2, .version-blue p > span{
+  color: #c2c1c1; 
+}
+
+.version-red { 
+  background: linear-gradient(to right bottom, #ff2727 50%, #ff1111 50%);
+} 
+.version-red h2, .version-red p > span{
+  color: #fff9f9; 
+}
+
+.version-sun { 
+  background: linear-gradient(to right bottom, #ff8928 50%, #f3741f 50%);
+} 
+.version-sun h2, .version-sun p > span{
+  color: #fff9f9; 
+}
+
+.version-moon { 
+  background: linear-gradient(to right bottom, #521cb6 50%, #4a0fb8 50%);
+} 
+.version-moon h2, .version-moon p > span{
+  color: #fff9f9; 
+}
+
+/* variables*/
 
 $colors: (
   primary:        #488aff,

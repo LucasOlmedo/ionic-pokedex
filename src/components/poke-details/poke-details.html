@@ -11,11 +11,13 @@
       <div ion-item>
         <ion-icon name="paper" item-start></ion-icon>
       </div>
-      <ion-slides margin-top>
-        <ion-slide *ngFor="let dex of pokeDetails.dex">
+      <ion-slides margin-top style="display:flex !important; flex-wrap: nowrap;">
+        <ion-slide *ngFor="let dex of pokeDetails.dex" class="swiper-slide {{gameVersionColor(dex.class)}}" padding>
           <h2 text-capitalize text-wrap>{{dex.game_version}}</h2>
           <hr>
-          <p text-justify text-wrap padding>{{dex.description}}</p>
+          <p text-justify text-wrap>
+            <span>{{dex.description}}</span>
+          </p>
         </ion-slide>
       </ion-slides>
       <ion-item-divider margin-bottom></ion-item-divider>
@@ -55,7 +57,7 @@
           </ion-col>
           <ion-col col-2>
             <div text-right>
-              <small text-left>{{statItem.base_stat}}</small>
+              <small>{{statItem.base_stat}}</small>
             </div>
           </ion-col>
         </ion-row>
