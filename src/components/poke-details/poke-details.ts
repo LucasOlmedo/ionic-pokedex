@@ -30,6 +30,25 @@ export class PokeDetailsComponent {
     }
   }
 
+  statColor(stat) {
+    switch (stat) {
+      case 'hp':
+        return 'stat-hp';
+      case 'attack':
+        return 'stat-attack';
+      case 'defense':
+        return 'stat-defense';
+      case 'special-attack':
+        return 'stat-special-attack';
+      case 'special-defense':
+        return 'stat-special-defense';
+      case 'speed':
+        return 'stat-speed';
+      default:
+        break;
+    }
+  }
+
   typeColor(type) {
     switch (type) {
       case 'normal':

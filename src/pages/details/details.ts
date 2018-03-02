@@ -39,6 +39,7 @@ export class DetailsPage {
           height: this.obj.height,
           img: this.obj.sprites.front_default.toString(),
           types: this.obj.types.reverse(),
+          stats: this.obj.stats.reverse(),
         };
         this.loadPokeDescription(this.obj.species.url);
       },

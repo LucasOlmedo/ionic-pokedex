@@ -5,7 +5,7 @@
       </ion-title>
     </ion-card-title>
     <div ion-item text-center>
-      <ion-img width="165" height="165" style="background:transparent !important;" src="{{pokeDetails.img}}"></ion-img>
+      <img src="{{pokeDetails.img}}" alt="{{pokeDetails.name}}.png" class="pokemon-sprite">
     </div>
     <ion-card-content>
       <div ion-item>
@@ -26,11 +26,11 @@
         </div>
         <div ion-item>
           <ion-icon name="resize" item-start></ion-icon>
-          <span>{{formatHeightWeight(pokeDetails.height)}}</span>
+          <span>{{formatHeightWeight(pokeDetails.height)}} m</span>
         </div>
         <div ion-item>
           <ion-icon name="pint" item-start></ion-icon>
-          <span>{{formatHeightWeight(pokeDetails.weight)}}</span>
+          <span>{{formatHeightWeight(pokeDetails.weight)}} Kg</span>
         </div>
         <div ion-item>
           <ion-icon name="pricetags" item-start></ion-icon>
@@ -39,6 +39,27 @@
           </ion-badge>
         </div>
       </ion-list>
+      <ion-item-divider margin-bottom></ion-item-divider>
+      <div ion-item>
+        <ion-icon name="stats" item-start></ion-icon>
+      </div>
+      <ion-grid>
+        <ion-row *ngFor="let statItem of pokeDetails.stats">
+          <ion-col col-5>
+            <div text-right>
+              <small text-capitalize>{{statItem.stat.name.replace('-', ' ')}}</small>
+            </div>
+          </ion-col>
+          <ion-col col-5>
+            <progress value="{{statItem.base_stat}}" [class]="statColor(statItem.stat.name)" max="150"></progress>
+          </ion-col>
+          <ion-col col-2>
+            <div text-right>
+              <small text-left>{{statItem.base_stat}}</small>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 
