@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PokeDetailsComponent } from './poke-details/poke-details';
+import { PokeListComponent } from './poke-list/poke-list';
 @NgModule({
-	declarations: [PokeDetailsComponent],
+	declarations: [PokeDetailsComponent,
+		PokeListComponent],
 	imports: [],
-	exports: [PokeDetailsComponent]
+	exports: [PokeDetailsComponent,
+		PokeListComponent]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

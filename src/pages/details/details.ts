@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 
 /**
@@ -15,12 +15,12 @@ import { PokeServiceProvider } from './../../providers/poke-service/poke-service
   templateUrl: 'details.html',
 })
 export class DetailsPage {
+
   @ViewChild('spinner') spinner: any;
 
   public pokeUrl;
   public obj: any;
   public pokeDetails: any;
-  public loader: any;
   public pageLoaded: boolean = false;
 
   constructor(
@@ -43,10 +43,10 @@ export class DetailsPage {
         };
         this.loadPokeDescription(this.obj.species.url);
       },
-      error => console.error(error));
+        error => console.error(error));
   }
 
-  loadPokeDescription(speciesUrl){
+  loadPokeDescription(speciesUrl) {
     var species: any;
     this.pokeService.loadAPIResource(speciesUrl)
       .subscribe(response => {
@@ -65,12 +65,12 @@ export class DetailsPage {
         this.pokeDetails.dex = englishTextGroup;
         return this.pokeDetails;
       },
-      error => console.error(error),
-      () => {
-        let spinnerNative = this.spinner._elementRef.nativeElement;
-        spinnerNative.style.display = 'none';
-        this.pageLoaded = true;
-      });
+        error => console.error(error),
+        () => {
+          let spinnerNative = this.spinner._elementRef.nativeElement;
+          spinnerNative.style.display = 'none';
+          this.pageLoaded = true;
+        });
   }
 
   ionViewDidLoad() {

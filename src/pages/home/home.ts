@@ -1,6 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 
 @Component({
@@ -9,42 +8,38 @@ import { PokeServiceProvider } from './../../providers/poke-service/poke-service
 })
 export class HomePage {
 
+  @ViewChild('spinner') spinner: any;
+
   public obj: any;
-  public pokes: any[];
+  public pokeList: any;
   public controls: any;
-  public loader: any;
-  public url = 'https://pokeapi.co/api/v2/';
+  public url: string = 'https://pokeapi.co/api/v2/';
   public hasMoreData: boolean = true;
+  public pageLoaded: boolean = false;
 
   constructor(
-    public navCtrl: NavController,
     public pokeService: PokeServiceProvider
   ) {
     this.getPokes(this.url + 'pokemon/');
   }
 
   getPokes(url) {
-    // this.pokeService.showLoading();
     this.pokeService.loadAPIResource(url)
       .subscribe(response => {
         this.obj = response;
-        this.pokes = this.obj.results;
+        this.pokeList = this.obj;
         this.controls = {
           count: this.obj.count,
-          previous: this.obj.previous,
-          next: this.obj.next
-        };
+          next: this.obj.next,
+          previous: this.obj.previous
+        }
       },
-      error => console.error(error),
-      () => {
-        // this.pokeService.hideLoading()
-      });
-  }
-
-  getDetails(pokeUrl) {
-    this.navCtrl.push("DetailsPage", {
-      pokeUrl: pokeUrl
-    });
+        error => console.error(error),
+        () => {
+          let spinnerNative = this.spinner._elementRef.nativeElement;
+          spinnerNative.style.display = 'none';
+          this.pageLoaded = true;
+        });
   }
 
   doInfinite(scroll) {
@@ -63,13 +58,13 @@ export class HomePage {
             next: this.obj.next
           }
           for (let index = 0; index < this.obj.results.length; index++) {
-            this.pokes.push(this.obj.results[index]);
+            this.pokeList.results.push(this.obj.results[index]);
           }
         },
-        error => console.log(error),
-        () => {
-          scroll.complete();
-        });
+          error => console.log(error),
+          () => {
+            scroll.complete();
+          });
     }, 500);
   }
 }

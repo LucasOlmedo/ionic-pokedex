@@ -13,8 +13,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class PokeServiceProvider {
 
-  private loader: any;
-
   constructor(
     public http: HttpClient,
     public loading: LoadingController
@@ -26,17 +24,4 @@ export class PokeServiceProvider {
       params: search
     })
   }
-
-  showLoading() {
-    this.loader = this.loading.create({
-      spinner: "crescent",
-      showBackdrop: true,
-    });
-    this.loader.present();
-  }
-
-  hideLoading() {
-    this.loader.dismiss();
-  }
-
 }

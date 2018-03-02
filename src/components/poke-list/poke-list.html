@@ -1,0 +1,7 @@
+<ion-list>
+  <ion-item *ngFor="let poke of pokeList.results" (tap)="getDetails(poke.url)">
+    <h2 text-capitalize>
+      {{poke.name}}
+    </h2>
+  </ion-item>
+</ion-list>
