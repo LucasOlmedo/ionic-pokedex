@@ -1,22 +1,47 @@
-import { Component, Input } from '@angular/core';
-
-/**
- * Generated class for the PokeDetailsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+import { Component, Input, ElementRef, HostListener } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 @Component({
   selector: 'poke-details',
   templateUrl: 'poke-details.html',
+  animations: [
+    trigger('scrollAnimation', [
+      state('show', style({
+        width: '100%'
+      })),
+      state('hide', style({
+        width: '0%'
+      })),
+      transition('hide => show', animate('2s ease-in'))
+    ])
+  ]
 })
 export class PokeDetailsComponent {
 
   @Input() pokeDetails: any;
 
-  constructor() { }
+  public state: string = 'hide';
 
-  ionViewDidLoad() { }
+  constructor(
+    public element: ElementRef
+  ) {
+
+  }
+
+  // @HostListener('window:scroll', ['$event'])
+  //   checkScroll() {
+  //     const componentPosition = this.element.nativeElement.offsetTop;
+  //     const scrollPosition = window.pageYOffset;
+
+  //     if (scrollPosition >= componentPosition) {
+  //       this.state = 'show';
+  //     }
+  //   }
 
   formatHeightWeight(value) {
     let formatted = value.toString();
@@ -28,6 +53,12 @@ export class PokeDetailsComponent {
     }else{
       return formatted.substr(0, lastIndex) + `0.${last}`;
     }
+  }
+
+  getTotalStats(stats){
+    return stats.reduce((a, b) => {
+      return a + b.base_stat
+    }, 0);
   }
 
   gameVersionColor(version) {

@@ -11,8 +11,20 @@
 /* pokemon sprite image */
 
 .pokemon-sprite {
-  width: 145px;
+  width: 140px;
   margin: auto;
+}
+
+/* info */
+
+.poke-info {
+  font-size: 1.2em;
+  padding: 5px;
+}
+
+.poke-info > ion-badge {
+  font-size: 0.8em !important;
+  vertical-align: text-top !important;
 }
 
 /* progress stats */
@@ -68,198 +80,198 @@ progress.stat-speed::-webkit-progress-value {
 /* dex slides */
 
 .version-alpha-sapphire {
-  background: linear-gradient(to right bottom, #227ef7 50%, #0066ec 50%);
+  background: linear-gradient(to right bottom, #3171d1 50%, #0853c4 50%);
 }
-.version-alpha-sapphire h2, .version-alpha-sapphire p > span{
+.version-alpha-sapphire small{
   color: rgb(255, 255, 255);
 }
 
 .version-omega-ruby {
-  background: linear-gradient(to right bottom, rgb(230, 57, 45) 50%, rgb(219, 34, 21) 50%);
+  background: linear-gradient(to right bottom, rgb(207, 55, 45) 50%, rgb(187, 24, 12) 50%);
 }
-.version-omega-ruby h2, .version-omega-ruby p > span{
+.version-omega-ruby small{
   color: rgb(252, 252, 252);
 }
 
 .version-x {
   background: linear-gradient(to right bottom, #647bce 50%, #536ac0 50%);
 }
-.version-x h2, .version-x p > span{
+.version-x small{
   color: rgb(245, 245, 245);
 }
 
 .version-y {
   background: linear-gradient(to right bottom, #ec615d 50%, #e04f4a 50%);
 }
-.version-y h2, .version-y p > span{
+.version-y small{
   color: rgb(247, 247, 247);
 }
 
 .version-white {
   background: linear-gradient(to right bottom, #fff 50%, #cecece 50%);
 }
-.version-white h2, .version-white p > span{
+.version-white small{
   color: #222;
 }
 
 .version-black {
   background: linear-gradient(to right bottom, #292929 50%, rgb(17, 17, 17) 50%);
 }
-.version-black h2, .version-black p > span{
+.version-black small{
   color: gainsboro;
 }
 
 .version-white-2 {
   background: linear-gradient(to right bottom, #ededed 50%, #d3d3d3 50%);
 }
-.version-white-2 h2, .version-white-2 p > span{
+.version-white-2 small{
   color: #222;
 }
 
 .version-black-2 {
   background: linear-gradient(to right bottom, #464646 50%, #2e2e2e 50%);
 }
-.version-black-2 h2, .version-black-2 p > span{
+.version-black-2 small{
   color: rgb(252, 255, 242);
 }
 
 .version-soulsilver {
   background: linear-gradient(to right bottom, #d8d8ff 50%, #c3c3e7 50%);
 }
-.version-soulsilver h2, .version-soulsilver p > span{
+.version-soulsilver small{
   color: #000;
 }
 
 .version-heartgold {
   background: linear-gradient(to right bottom, #9e9519 50%, #867f10 50%);
 }
-.version-heartgold h2, .version-heartgold p > span{
+.version-heartgold small{
   color: #fff;
 }
 
 .version-platinum {
   background: linear-gradient(to right bottom, #7e7979 50%, #695b5b 50%);
 }
-.version-platinum h2, .version-platinum p > span{
+.version-platinum small{
   color: azure;
 }
 
 .version-pearl {
   background: linear-gradient(to right bottom, #ffc0c0 50%, #fcaaaa 50%);
 }
-.version-pearl h2, .version-pearl p > span{
+.version-pearl small{
   color: rgb(27, 27, 41);
 }
 
 .version-diamond {
   background: linear-gradient(to right bottom, rgb(139, 174, 221) 50%, rgb(108, 148, 201) 50%);
 }
-.version-diamond h2, .version-diamond p > span{
+.version-diamond small{
   color: rgb(27, 27, 41);
 }
 
 .version-xd {
   background: linear-gradient(to right bottom, #8e4eb3 50%, #78359e 50%);
 }
-.version-xd h2, .version-xd p > span{
+.version-xd small{
   color: lightcyan;
 }
 
 .version-colloseum {
   background: linear-gradient(to right bottom, #84abd8 50%, #6b94c4 50%);
 }
-.version-colloseum h2, .version-colloseum p > span{
+.version-colloseum small{
   color: rgb(33, 33, 68);
 }
 
 .version-leafgreen {
   background: linear-gradient(to right bottom, #37d137 50%, #17be17 50%);
 }
-.version-leafgreen h2, .version-leafgreen p > span{
+.version-leafgreen small{
   color: rgb(19, 22, 18);
 }
 
 .version-firered {
   background: linear-gradient(to right bottom, #fc4b15 50%, #fa2803 50%);
 }
-.version-firered h2, .version-firered p > span{
+.version-firered small{
   color: cornsilk;
 }
 
 .version-emerald {
   background: linear-gradient(to right bottom, #376637 50%, #254e25 50%);
 }
-.version-emerald h2, .version-emerald p > span{
+.version-emerald small{
   color: rgb(250, 247, 220);
 }
 
 .version-sapphire {
   background: linear-gradient(to right bottom, #0c0cc0 50%, #040488 50%);
 }
-.version-sapphire h2, .version-sapphire p > span{
+.version-sapphire small{
   color: lightcyan;
 }
 
 .version-ruby {
   background: linear-gradient(to right bottom, #ac1e1e 50%, #910202 50%);
 }
-.version-ruby h2, .version-ruby p > span{
+.version-ruby small{
   color: oldlace;
 }
 
 .version-crystal {
-  background: linear-gradient(to right bottom, #68fff2 50%, #11ffeb 50%);
+  background: linear-gradient(to right bottom, #56faec 50%, #05f0dc 50%);
 }
-.version-crystal h2, .version-crystal p > span{
+.version-crystal small{
   color: #0b2229;
 }
 
 .version-silver {
   background: linear-gradient(to right bottom, #e7e7e7 50%, #bebebe 50%);
 }
-.version-silver h2, .version-silver p > span{
+.version-silver small{
   color: #2b2b2b;
 }
 
 .version-gold {
   background: linear-gradient(to right bottom, #f1b828 50%, #e49c00 50%);
 }
-.version-gold h2, .version-gold p > span{
+.version-gold small{
   color: #1f1b10;
 }
 
 .version-yellow {
-  background: linear-gradient(to right bottom, #fff460 50%, #ffee00 50%);
+  background: linear-gradient(to right bottom, #fff460 50%, #f0e000 50%);
 }
-.version-yellow h2, .version-yellow p > span{
+.version-yellow small{
   color: #1b1b19;
 }
 
 .version-blue {
-  background: linear-gradient(to right bottom, #3755ff 50%, #1d3fff 50%);
+  background: linear-gradient(to right bottom, #4763ff 50%, #1d3fff 50%);
 }
-.version-blue h2, .version-blue p > span{
-  color: #f0f0f0;
+.version-blue small{
+  color: #ffffff;
 }
 
 .version-red {
-  background: linear-gradient(to right bottom, #ff3b3b 50%, #ff0000 50%);
+  background: linear-gradient(to right bottom, #ff3232 50%, #fc1515 50%);
 }
-.version-red h2, .version-red p > span{
-  color: #eeeeee;
+.version-red small{
+  color: #ffffff;
 }
 
 .version-sun {
   background: linear-gradient(to right bottom, #ffbb28 50%, #f3741f 50%);
 }
-.version-sun h2, .version-sun p > span{
+.version-sun small{
   color: #fff9f9;
 }
 
 .version-moon {
   background: linear-gradient(to right bottom, rgb(105, 47, 214) 50%, #360388 50%);
 }
-.version-moon h2, .version-moon p > span{
+.version-moon small{
   color: #fff9f9;
 }
 
