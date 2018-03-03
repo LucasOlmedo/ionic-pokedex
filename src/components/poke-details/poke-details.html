@@ -1,7 +1,7 @@
 <ion-card>
     <ion-card-title margin-top>
-      <ion-title text-capitalize text-center text-wrap>
-        #{{pokeDetails.id}} {{pokeDetails.name}}
+      <ion-title text-capitalize text-wrap>
+        #{{pokeDetails.id}} - {{pokeDetails.name}}
       </ion-title>
     </ion-card-title>
     <div ion-item text-center>
@@ -15,7 +15,7 @@
         <ion-slide *ngFor="let dex of pokeDetails.dex" class="swiper-slide {{gameVersionColor(dex.class)}}" padding>
           <h2 text-capitalize text-wrap>{{dex.game_version}}</h2>
           <hr>
-          <p text-justify text-wrap>
+          <p text-left text-wrap>
             <span>{{dex.description}}</span>
           </p>
         </ion-slide>

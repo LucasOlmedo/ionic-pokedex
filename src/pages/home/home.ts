@@ -16,6 +16,8 @@ export class HomePage {
   public url: string = 'https://pokeapi.co/api/v2/';
   public hasMoreData: boolean = true;
   public pageLoaded: boolean = false;
+  public singlePoke: any;
+  public extraInfoPoke: any;
 
   constructor(
     public pokeService: PokeServiceProvider
@@ -32,14 +34,22 @@ export class HomePage {
           count: this.obj.count,
           next: this.obj.next,
           previous: this.obj.previous
-        }
-      },
-        error => console.error(error),
-        () => {
-          let spinnerNative = this.spinner._elementRef.nativeElement;
-          spinnerNative.style.display = 'none';
-          this.pageLoaded = true;
+        };
+        this.pokeList.results.map((poke) => {
+          poke.id = this.getId(poke.url);
         });
+      },
+      error => console.error(error),
+      () => {
+        let spinnerNative = this.spinner._elementRef.nativeElement;
+        spinnerNative.style.display = 'none';
+        this.pageLoaded = true;
+      });
+  }
+
+  getId(pokeUrl: any){
+    let pokeId = pokeUrl.split("pokemon/").pop();
+    return pokeId.replace('/', '');
   }
 
   doInfinite(scroll) {
@@ -58,7 +68,9 @@ export class HomePage {
             next: this.obj.next
           }
           for (let index = 0; index < this.obj.results.length; index++) {
-            this.pokeList.results.push(this.obj.results[index]);
+            let poke = this.obj.results[index];
+            poke.id = this.getId(poke.url);
+            this.pokeList.results.push(poke);
           }
         },
           error => console.log(error),
