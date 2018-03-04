@@ -11,15 +11,15 @@
 /* pokemon sprite image */
 
 .pokemon-sprite {
-  width: 140px;
+  width: 130px;
   margin: auto;
 }
 
 /* info */
 
 .poke-info {
-  font-size: 1.2em;
-  padding: 5px;
+  font-size: 1em;
+  padding: 2px;
 }
 
 .poke-info > ion-badge {
@@ -33,7 +33,7 @@ progress {
   -webkit-appearance: inherit;
   box-sizing: border-box;
   display: inline-block;
-  height: 8px;
+  height: 5px;
   width: 100%;
   vertical-align: middle;
 }

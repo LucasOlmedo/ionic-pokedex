@@ -19,13 +19,16 @@
       <hr>
       <ion-slides margin-top style="height:auto !important;">
         <ion-slide *ngFor="let dex of pokeDetails.dex" class="swiper-slide {{gameVersionColor(dex.class)}}" padding>
-          <small><ion-icon name="list-box" float-left></ion-icon></small>
+          <small float-left text-left><ion-icon name="arrow-back"></ion-icon></small>
           <small text-uppercase text-wrap text-center>
             {{dex.game_version}}
           </small>
+          <small float-right text-right><ion-icon name="arrow-forward"></ion-icon></small>
           <hr>
-          <small text-left text-wrap>
-            {{dex.description}}
+          <small>
+            <p text-left text-wrap>
+              {{dex.description}}
+            </p>
           </small>
         </ion-slide>
       </ion-slides>
@@ -37,7 +40,7 @@
         Info
       </div>
       <hr>
-      <ion-card style="border-radius: 8px;">
+      <ion-card style="border-radius: 5px;">
         <ion-card-content>
           <!-- <ion-list> -->
             <div class="poke-info">
@@ -70,7 +73,6 @@
         Stats
       </div>
       <hr>
-      <!-- <ion-grid [@scrollAnimation]="state"> -->
       <ion-grid>
         <ion-row *ngFor="let statItem of pokeDetails.stats">
           <ion-col col-5>

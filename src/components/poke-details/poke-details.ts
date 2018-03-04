@@ -1,47 +1,19 @@
-import { Component, Input, ElementRef, HostListener } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { Component, Input, ElementRef } from '@angular/core';
 @Component({
   selector: 'poke-details',
   templateUrl: 'poke-details.html',
-  animations: [
-    trigger('scrollAnimation', [
-      state('show', style({
-        width: '100%'
-      })),
-      state('hide', style({
-        width: '0%'
-      })),
-      transition('hide => show', animate('2s ease-in'))
-    ])
-  ]
 })
 export class PokeDetailsComponent {
 
   @Input() pokeDetails: any;
 
-  public state: string = 'hide';
+  public slided: boolean = false;
 
   constructor(
     public element: ElementRef
   ) {
 
   }
-
-  // @HostListener('window:scroll', ['$event'])
-  //   checkScroll() {
-  //     const componentPosition = this.element.nativeElement.offsetTop;
-  //     const scrollPosition = window.pageYOffset;
-
-  //     if (scrollPosition >= componentPosition) {
-  //       this.state = 'show';
-  //     }
-  //   }
 
   formatHeightWeight(value) {
     let formatted = value.toString();
