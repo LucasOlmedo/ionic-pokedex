@@ -16,40 +16,48 @@ export class HomePage {
   public url: string = 'https://pokeapi.co/api/v2/';
   public hasMoreData: boolean = true;
   public pageLoaded: boolean = false;
-  public singlePoke: any;
   public extraInfoPoke: any;
 
   constructor(
     public pokeService: PokeServiceProvider
   ) {
-    this.getPokes(this.url + 'pokemon/');
-  }
-
-  getPokes(url) {
-    this.pokeService.loadAPIResource(url)
-      .subscribe(response => {
+      // let spinnerNative = this.spinner._elementRef.nativeElement;
+      // spinnerNative.style.display = 'none';
+      // this.pageLoaded = true;
+    this.pokeService.loadAPIResource(this.url + 'pokemon/')
+      .subscribe((response: Response) => {
         this.obj = response;
-        this.pokeList = this.obj;
         this.controls = {
           count: this.obj.count,
           next: this.obj.next,
           previous: this.obj.previous
         };
-        this.pokeList.results.map((poke) => {
-          poke.id = this.getId(poke.url);
+        this.pokeList = this.obj.results.map(poke => {
+          this.getDetails(poke.url)
+          poke = this.extraInfoPoke;
         });
       },
       error => console.error(error),
       () => {
+        console.log(this.pokeList);
         let spinnerNative = this.spinner._elementRef.nativeElement;
         spinnerNative.style.display = 'none';
         this.pageLoaded = true;
-      });
+      })
   }
 
-  getId(pokeUrl: any){
-    let pokeId = pokeUrl.split("pokemon/").pop();
-    return pokeId.replace('/', '');
+  // getId(pokeUrl: any){
+  //   let pokeId = pokeUrl.split("pokemon/").pop();
+  //   return pokeId.replace('/', '');
+  // }
+
+  getDetails(pokeUrl: any) {
+    this.pokeService.loadAPIResource(pokeUrl)
+      .subscribe(singlePoke => {
+        return this.extraInfoPoke = singlePoke;
+      },
+      error => console.error(error),
+      )
   }
 
   doInfinite(scroll) {
