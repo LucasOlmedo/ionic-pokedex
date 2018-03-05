@@ -11,7 +11,9 @@ export class HomePage {
   @ViewChild('spinner') spinner: any;
 
   public obj: any;
-  public pokeList: any;
+  public pokeList: any = {
+    results: []
+  };
   public controls: any;
   public url: string = 'https://pokeapi.co/api/v2/';
   public hasMoreData: boolean = true;
@@ -21,9 +23,6 @@ export class HomePage {
   constructor(
     public pokeService: PokeServiceProvider
   ) {
-      // let spinnerNative = this.spinner._elementRef.nativeElement;
-      // spinnerNative.style.display = 'none';
-      // this.pageLoaded = true;
     this.pokeService.loadAPIResource(this.url + 'pokemon/')
       .subscribe((response: Response) => {
         this.obj = response;
@@ -32,32 +31,39 @@ export class HomePage {
           next: this.obj.next,
           previous: this.obj.previous
         };
-        this.pokeList = this.obj.results.map(poke => {
-          this.getDetails(poke.url)
-          poke = this.extraInfoPoke;
-        });
+        this.getDetails(this.obj);
       },
       error => console.error(error),
       () => {
         console.log(this.pokeList);
-        let spinnerNative = this.spinner._elementRef.nativeElement;
-        spinnerNative.style.display = 'none';
-        this.pageLoaded = true;
+        // let spinnerNative = this.spinner._elementRef.nativeElement;
+        // spinnerNative.style.display = 'none';
+        // this.pageLoaded = true;
       })
   }
 
-  // getId(pokeUrl: any){
-  //   let pokeId = pokeUrl.split("pokemon/").pop();
-  //   return pokeId.replace('/', '');
-  // }
+  getDetails(obj: any) {
+    var pokes = obj;
+    
+    for (let index = 0; index < pokes.results.length; index++) {
+      let pokeObj = pokes.results[index];
 
-  getDetails(pokeUrl: any) {
-    this.pokeService.loadAPIResource(pokeUrl)
-      .subscribe(singlePoke => {
-        return this.extraInfoPoke = singlePoke;
-      },
-      error => console.error(error),
-      )
+      this.pokeService.loadAPIResource(pokeObj.url)
+        .subscribe(response => {
+          this.extraInfoPoke = response;
+
+          let singlePoke = {
+            id: this.extraInfoPoke.id,
+            name: this.extraInfoPoke.name,
+            url: pokeObj.url,
+            img: this.extraInfoPoke.sprites.front_default,
+            types: this.extraInfoPoke.types
+          }
+          
+          this.pokeList.results.push(singlePoke);
+        },
+        error => console.error(error));
+    }
   }
 
   doInfinite(scroll) {
@@ -77,7 +83,7 @@ export class HomePage {
           }
           for (let index = 0; index < this.obj.results.length; index++) {
             let poke = this.obj.results[index];
-            poke.id = this.getId(poke.url);
+            // poke.id = this.getId(poke.url);
             this.pokeList.results.push(poke);
           }
         },
