@@ -32,14 +32,18 @@ export class HomePage {
           previous: this.obj.previous
         };
         this.getDetails(this.obj);
+        console.log('fim getdetails', this.pokeList);
+        
       },
       error => console.error(error),
       () => {
-        console.log(this.pokeList);
+        console.log('constructor fim do subscribe', this.pokeList);
         // let spinnerNative = this.spinner._elementRef.nativeElement;
         // spinnerNative.style.display = 'none';
         // this.pageLoaded = true;
       })
+      console.log('fim geral', this.pokeList);
+      
   }
 
   getDetails(obj: any) {
@@ -62,8 +66,14 @@ export class HomePage {
           
           this.pokeList.results.push(singlePoke);
         },
-        error => console.error(error));
+        error => console.error(error),
+        () => {
+          console.log('getdetails fim do subscribe', this.pokeList);
+          
+        });
     }
+    console.log('fora do for', this.pokeList);
+    
   }
 
   doInfinite(scroll) {
