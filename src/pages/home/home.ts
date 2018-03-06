@@ -1,6 +1,14 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
+// import { Observable } from 'rxjs/Observable';
+// import { from } from "rxjs/observable/from";
+// import { map } from 'rxjs/operator/map';
+// import 'rxjs/add/observable/of';
+// import 'rxjs/add/observable/merge'
+// import 'rxjs/add/observable/from'
+import { Observable } from "rxjs/Rx";
+
 
 @Component({
   selector: 'page-home',
@@ -11,69 +19,62 @@ export class HomePage {
   @ViewChild('spinner') spinner: any;
 
   public obj: any;
-  public pokeList: any = {
-    results: []
-  };
+  public pokeList: any[];
   public controls: any;
   public url: string = 'https://pokeapi.co/api/v2/';
   public hasMoreData: boolean = true;
   public pageLoaded: boolean = false;
   public extraInfoPoke: any;
+  public singlePoke: any;
 
   constructor(
     public pokeService: PokeServiceProvider
   ) {
+    
     this.pokeService.loadAPIResource(this.url + 'pokemon/')
-      .subscribe((response: Response) => {
+      .subscribe((response: any) => {
         this.obj = response;
         this.controls = {
           count: this.obj.count,
           next: this.obj.next,
           previous: this.obj.previous
         };
-        this.getDetails(this.obj);
-        console.log('fim getdetails', this.pokeList);
-        
-      },
-      error => console.error(error),
-      () => {
-        console.log('constructor fim do subscribe', this.pokeList);
-        // let spinnerNative = this.spinner._elementRef.nativeElement;
-        // spinnerNative.style.display = 'none';
-        // this.pageLoaded = true;
-      })
-      console.log('fim geral', this.pokeList);
-      
+        this.getDetails(this.obj).subscribe(data => {
+          let spinnerNative = this.spinner._elementRef.nativeElement;
+          spinnerNative.style.display = 'none';
+          this.pageLoaded = true;
+          this.pokeList = data.sort((a, b) => a.id - b.id);
+        });
+      });
   }
 
   getDetails(obj: any) {
-    var pokes = obj;
-    
-    for (let index = 0; index < pokes.results.length; index++) {
-      let pokeObj = pokes.results[index];
+    var pokes = obj.results;
 
-      this.pokeService.loadAPIResource(pokeObj.url)
-        .subscribe(response => {
-          this.extraInfoPoke = response;
+    return Observable.from(pokes)
+      .flatMap((item : any) => {
+        return this.pokeService.loadAPIResource(item.url)
+          .flatMap((pokeObj : any) => {
+            return Observable.of({
+              id: this.formatId(pokeObj.id),
+              name: pokeObj.name,
+              img: pokeObj.sprites.front_default,
+              types: pokeObj.types,
+              url: item.url
+            });
+          });
+      })
+      .toArray()
+  }
 
-          let singlePoke = {
-            id: this.extraInfoPoke.id,
-            name: this.extraInfoPoke.name,
-            url: pokeObj.url,
-            img: this.extraInfoPoke.sprites.front_default,
-            types: this.extraInfoPoke.types
-          }
-          
-          this.pokeList.results.push(singlePoke);
-        },
-        error => console.error(error),
-        () => {
-          console.log('getdetails fim do subscribe', this.pokeList);
-          
-        });
-    }
-    console.log('fora do for', this.pokeList);
-    
+  formatId(id) {
+      if(id < 10) {
+        return '00'+id;
+      }
+      if(id >= 10 && id < 100){
+        return '0'+id;
+      }
+      return id;
   }
 
   doInfinite(scroll) {
@@ -90,17 +91,16 @@ export class HomePage {
             count: this.obj.count,
             previous: this.obj.previous,
             next: this.obj.next
-          }
-          for (let index = 0; index < this.obj.results.length; index++) {
-            let poke = this.obj.results[index];
-            // poke.id = this.getId(poke.url);
-            this.pokeList.results.push(poke);
-          }
-        },
-          error => console.log(error),
-          () => {
+          };
+          this.getDetails(this.obj).subscribe(data => {
+            for (let index = 0; index < data.length; index++) {
+              let poke = data[index];
+              this.pokeList.push(poke);
+            }
+            this.pokeList.sort((a, b) => a.id - b.id)
             scroll.complete();
           });
+        });
     }, 500);
   }
 }
