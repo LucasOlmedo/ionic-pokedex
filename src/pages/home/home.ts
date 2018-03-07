@@ -1,12 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
-// import { Observable } from 'rxjs/Observable';
-// import { from } from "rxjs/observable/from";
-// import { map } from 'rxjs/operator/map';
-// import 'rxjs/add/observable/of';
-// import 'rxjs/add/observable/merge'
-// import 'rxjs/add/observable/from'
 import { Observable } from "rxjs/Rx";
 
 
@@ -59,7 +53,7 @@ export class HomePage {
               id: this.formatId(pokeObj.id),
               name: pokeObj.name,
               img: pokeObj.sprites.front_default,
-              types: pokeObj.types,
+              types: pokeObj.types.reverse(),
               url: item.url
             });
           });

@@ -1,11 +1,22 @@
 <ion-card *ngFor="let poke of pokeList" (tap)="getDetails(poke.url)">
-  <ion-card-content>
-    <ion-item>
-      <div class="poke-list-info">
-        <span># {{poke.id}}</span>
-        <span text-capitalize text-wrap>{{poke.name}}</span>
-      </div>
-      <img src="{{poke.img}}" class="poke-list-img" alt="" margin-bottom>
-    </ion-item>
+  <ion-card-content style="padding: 0px 10px !important;">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="poke-list-info">
+            <span text-capitalize text-wrap>
+              #{{poke.id}} - {{poke.name}}
+            </span>
+            <br>
+            <ion-badge *ngFor="let type of poke.types" [color]="typeColor(type.type.name)" style="margin-right: 3px; padding: 2px 5px;">
+              <span class="badge-type" text-uppercase>{{type.type.name}}</span>
+            </ion-badge>
+          </div>
+        </ion-col>
+        <ion-col col-4>
+          <img src="{{poke.img}}" alt="">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card-content>
 </ion-card>
