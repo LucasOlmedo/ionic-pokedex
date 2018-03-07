@@ -1,47 +1,52 @@
 <ion-grid>
-  <ion-row>
-    <ion-col>
-      <h4 text-wrap text-capitalize text-center>
-        #{{pokeDetails.id}} &nbsp;&nbsp; - &nbsp;&nbsp; {{pokeDetails.name}}
-      </h4>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col text-center>
-      <img #pokeImgRef src="{{pokeDetails.img}}" alt="{{pokeDetails.name}}.png" class="pokemon-sprite">
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <div text-uppercase padding-left margin-top>
-        Description
-      </div>
-      <hr>
-      <ion-slides margin-top style="height:auto !important;">
-        <ion-slide *ngFor="let dex of pokeDetails.dex" class="swiper-slide {{gameVersionColor(dex.class)}}" padding>
-          <small float-left text-left><ion-icon name="arrow-back"></ion-icon></small>
-          <small text-uppercase text-wrap text-center>
-            {{dex.game_version}}
-          </small>
-          <small float-right text-right><ion-icon name="arrow-forward"></ion-icon></small>
-          <hr>
-          <small>
-            <p text-left text-wrap>
-              {{dex.description}}
-            </p>
-          </small>
-        </ion-slide>
-      </ion-slides>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <div text-uppercase padding-left margin-top>
-        Info
-      </div>
-      <hr>
-      <ion-card style="border-radius: 5px;">
-        <ion-card-content>
+  <div #main>
+    <ion-row>
+      <ion-col>
+        <h4 text-wrap text-capitalize text-center>
+          #{{pokeDetails.id}} &nbsp;&nbsp; - &nbsp;&nbsp; {{pokeDetails.name}}
+        </h4>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <img #pokeImgRef src="{{pokeDetails.img}}" alt="{{pokeDetails.name}}.png" class="pokemon-sprite">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div text-uppercase padding-left margin-top>
+          Description
+        </div>
+        <hr>
+        <ion-slides margin-top style="height:auto !important;">
+          <ion-slide *ngFor="let dex of pokeDetails.dex" class="swiper-slide {{gameVersionColor(dex.class)}}" padding>
+            <small float-left text-left>
+              <ion-icon name="arrow-back"></ion-icon>
+            </small>
+            <small text-uppercase text-wrap text-center>
+              {{dex.game_version}}
+            </small>
+            <small float-right text-right>
+              <ion-icon name="arrow-forward"></ion-icon>
+            </small>
+            <hr>
+            <small>
+              <p text-left text-wrap>
+                {{dex.description}}
+              </p>
+            </small>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div text-uppercase padding-left margin-top>
+          Info
+        </div>
+        <hr>
+        <ion-card style="border-radius: 5px;">
+          <ion-card-content>
             <div class="poke-info">
               <ion-icon name="resize" item-start></ion-icon>
               <span margin-left>
@@ -56,43 +61,44 @@
             </div>
             <div class="poke-info">
               <ion-icon name="pricetags" item-start padding-right></ion-icon>
-              &nbsp;&nbsp; 
+              &nbsp;&nbsp;
               <ion-badge *ngFor="let type of pokeDetails.types" [color]="typeColor(type.type.name)" style="margin-right: 5px;">
                 <span text-uppercase>{{type.type.name}}</span>
               </ion-badge>
             </div>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <div text-uppercase padding-left margin-top>
-        Stats
-      </div>
-      <hr>
-      <ion-grid>
-        <ion-row *ngFor="let statItem of pokeDetails.stats">
-          <ion-col col-5>
-            <div text-right>
-              <small text-capitalize>{{statItem.stat.name.replace('-', ' ')}}</small>
-            </div>
-          </ion-col>
-          <ion-col col-5>
-            <progress value="{{statItem.base_stat}}" [class]="statColor(statItem.stat.name)" max="150"></progress>
-          </ion-col>
-          <ion-col col-2>
-            <div text-right>
-              <small>{{statItem.base_stat}}</small>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col text-center text-uppercase margin-top> 
-            <span>Total: {{getTotalStats(pokeDetails.stats)}}</span>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-col>
-  </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div text-uppercase padding-left margin-top>
+          Stats
+        </div>
+        <hr>
+        <ion-grid>
+          <ion-row *ngFor="let statItem of pokeDetails.stats">
+            <ion-col col-5>
+              <div text-right>
+                <small text-capitalize>{{statItem.stat.name.replace('-', ' ')}}</small>
+              </div>
+            </ion-col>
+            <ion-col col-5>
+              <progress value="{{statItem.base_stat}}" [class]="statColor(statItem.stat.name)" max="150"></progress>
+            </ion-col>
+            <ion-col col-2>
+              <div text-right>
+                <small>{{statItem.base_stat}}</small>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-center text-uppercase margin-top>
+              <span>Total: {{getTotalStats(pokeDetails.stats)}}</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-grid>

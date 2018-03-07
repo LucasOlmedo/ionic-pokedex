@@ -8,14 +8,18 @@ import { NavController } from 'ionic-angular';
 export class PokeDetailsComponent {
 
   @Input() pokeDetails: any;
-  @ViewChild('pokeImgRef') pokeImg: any; 
+  @ViewChild('pokeImgRef') pokeImg: any;
+  @ViewChild('main') main: any;
 
   constructor(
     public navCtrl: NavController
   ) { }
 
   ngAfterViewInit() {
-    this.getAverageColor();
+    let mainStyle = this.getAverageColor();
+    mainStyle.then(style => {
+      console.log(this.main.nativeElement.style);
+    });
   }
 
   getAverageColor() {
@@ -23,7 +27,7 @@ export class PokeDetailsComponent {
     var imgVibrant = Vibrant.from(img.nativeElement.src);
     let prominentColors = [];
     
-    imgVibrant
+    return imgVibrant
       .quality(1)
       .maxColorCount(3)
       .getPalette()
@@ -82,9 +86,9 @@ export class PokeDetailsComponent {
           prominentColors.push(vibrant)
         }
 
-        let max = this.getProminentPopulationColor(prominentColors)
+        let max = this.getProminentPopulationColor(prominentColors);
 
-        console.log(max);
+        return `background-color: ${max.hex};`;
       });
   }
 
