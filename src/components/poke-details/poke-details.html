@@ -8,7 +8,7 @@
   </ion-row>
   <ion-row>
     <ion-col text-center>
-      <img src="{{pokeDetails.img}}" alt="{{pokeDetails.name}}.png" class="pokemon-sprite">
+      <img #pokeImgRef src="{{pokeDetails.img}}" alt="{{pokeDetails.name}}.png" class="pokemon-sprite">
     </ion-col>
   </ion-row>
   <ion-row>
@@ -42,7 +42,6 @@
       <hr>
       <ion-card style="border-radius: 5px;">
         <ion-card-content>
-          <!-- <ion-list> -->
             <div class="poke-info">
               <ion-icon name="resize" item-start></ion-icon>
               <span margin-left>
@@ -62,7 +61,6 @@
                 <span text-uppercase>{{type.type.name}}</span>
               </ion-badge>
             </div>
-          <!-- </ion-list> -->
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -91,7 +89,7 @@
         </ion-row>
         <ion-row>
           <ion-col text-center text-uppercase margin-top> 
-            <small>Total: {{getTotalStats(pokeDetails.stats)}}</small>
+            <span>Total: {{getTotalStats(pokeDetails.stats)}}</span>
           </ion-col>
         </ion-row>
       </ion-grid>

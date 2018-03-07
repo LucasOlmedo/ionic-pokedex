@@ -5,9 +5,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content fullscreen>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button tappable menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>

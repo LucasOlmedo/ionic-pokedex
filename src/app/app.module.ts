@@ -9,7 +9,6 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { PokeServiceProvider } from '../providers/poke-service/poke-service';
 import { PokeListComponent } from '../components/poke-list/poke-list';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     IonicModule.forRoot(MyApp),
     HttpModule,
     HttpClientModule,
-    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,4 +1,6 @@
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
+import Vibrant from 'node-vibrant';
+import { NavController } from 'ionic-angular';
 @Component({
   selector: 'poke-details',
   templateUrl: 'poke-details.html',
@@ -6,13 +8,93 @@ import { Component, Input, ElementRef } from '@angular/core';
 export class PokeDetailsComponent {
 
   @Input() pokeDetails: any;
-
-  public slided: boolean = false;
+  @ViewChild('pokeImgRef') pokeImg: any; 
 
   constructor(
-    public element: ElementRef
-  ) {
+    public navCtrl: NavController
+  ) { }
 
+  ngAfterViewInit() {
+    this.getAverageColor();
+  }
+
+  getAverageColor() {
+    let img = this.pokeImg;
+    var imgVibrant = Vibrant.from(img.nativeElement.src);
+    let prominentColors = [];
+    
+    imgVibrant
+      .quality(1)
+      .maxColorCount(3)
+      .getPalette()
+      .then(palette => {
+        if(palette.DarkMuted != null) {
+          let vibrant = {
+            name: 'DarkMuted',
+            hex: palette.DarkMuted.getHex(),
+            population: palette.DarkMuted.getPopulation()
+          };
+          prominentColors.push(vibrant)
+        }
+
+        if (palette.DarkVibrant != null) {
+          let vibrant = {
+            name: 'DarkVibrant',
+            hex: palette.DarkVibrant.getHex(),
+            population: palette.DarkVibrant.getPopulation()
+          };
+          prominentColors.push(vibrant)
+        }
+
+        if (palette.LightMuted != null) {
+          let vibrant = {
+            name: 'LightMuted',
+            hex: palette.LightMuted.getHex(),
+            population: palette.LightMuted.getPopulation()
+          };
+          prominentColors.push(vibrant)
+        }
+
+        if (palette.LightVibrant != null) {
+          let vibrant = {
+            name: 'LightVibrant',
+            hex: palette.LightVibrant.getHex(),
+            population: palette.LightVibrant.getPopulation()
+          };
+          prominentColors.push(vibrant)
+        }
+
+        if (palette.Muted != null) {
+          let vibrant = {
+            name: 'Muted',
+            hex: palette.Muted.getHex(),
+            population: palette.Muted.getPopulation()
+          };
+          prominentColors.push(vibrant)
+        }
+
+        if (palette.Vibrant != null) {
+          let vibrant = {
+            name: 'Vibrant',
+            hex: palette.Vibrant.getHex(),
+            population: palette.Vibrant.getPopulation()
+          };
+          prominentColors.push(vibrant)
+        }
+
+        let max = this.getProminentPopulationColor(prominentColors)
+
+        console.log(max);
+      });
+  }
+
+  getProminentPopulationColor(colors) {
+    let max = colors[0];
+    for (let index = 1; index < colors.length; index++) {
+      let color = colors[index];
+      max = (color.population > max.population) ? color : max;
+    }
+    return max;
   }
 
   formatHeightWeight(value) {
