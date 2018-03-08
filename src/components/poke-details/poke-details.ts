@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import Vibrant from 'node-vibrant';
 import { NavController } from 'ionic-angular';
+import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
 @Component({
   selector: 'poke-details',
   templateUrl: 'poke-details.html',
@@ -14,93 +14,18 @@ export class PokeDetailsComponent {
   public layoutStyle: any;
 
   constructor(
-    public navCtrl: NavController
-  ) {  }
+    public navCtrl: NavController,
+    public helper: PokeHelperProvider
+  ) {
+
+  }
   
   ngAfterViewInit() {
-    this.getAverageColor()
+    this.helper.getAverageColor(this.pokeImg)
       .then(style => {
         var mainDetails = document.getElementById('mainDetails');
         mainDetails.style.backgroundColor = style;
       });
-  }
-
-  getAverageColor() {
-    let img = this.pokeImg;
-    var imgVibrant = Vibrant.from(img.nativeElement.src);
-    let prominentColors = [];
-    
-    return imgVibrant
-      .quality(1)
-      .maxColorCount(4)
-      .getPalette()
-      .then(palette => {
-        if(palette.DarkMuted != null) {
-          let vibrant = {
-            name: 'DarkMuted',
-            hex: palette.DarkMuted.getHex(),
-            population: palette.DarkMuted.getPopulation()
-          };
-          prominentColors.push(vibrant)
-        }
-
-        if (palette.DarkVibrant != null) {
-          let vibrant = {
-            name: 'DarkVibrant',
-            hex: palette.DarkVibrant.getHex(),
-            population: palette.DarkVibrant.getPopulation()
-          };
-          prominentColors.push(vibrant)
-        }
-
-        if (palette.LightMuted != null) {
-          let vibrant = {
-            name: 'LightMuted',
-            hex: palette.LightMuted.getHex(),
-            population: palette.LightMuted.getPopulation()
-          };
-          prominentColors.push(vibrant)
-        }
-
-        if (palette.LightVibrant != null) {
-          let vibrant = {
-            name: 'LightVibrant',
-            hex: palette.LightVibrant.getHex(),
-            population: palette.LightVibrant.getPopulation()
-          };
-          prominentColors.push(vibrant)
-        }
-
-        if (palette.Muted != null) {
-          let vibrant = {
-            name: 'Muted',
-            hex: palette.Muted.getHex(),
-            population: palette.Muted.getPopulation()
-          };
-          prominentColors.push(vibrant)
-        }
-
-        if (palette.Vibrant != null) {
-          let vibrant = {
-            name: 'Vibrant',
-            hex: palette.Vibrant.getHex(),
-            population: palette.Vibrant.getPopulation()
-          };
-          prominentColors.push(vibrant)
-        }
-
-        let max = this.getProminentPopulationColor(prominentColors);
-        return `${max.hex}4D`;
-      });
-  }
-
-  getProminentPopulationColor(colors) {
-    let max = colors[0];
-    for (let index = 1; index < colors.length; index++) {
-      let color = colors[index];
-      max = (color.population > max.population) ? color : max;
-    }
-    return max;
   }
 
   formatHeightWeight(value) {
@@ -122,127 +47,14 @@ export class PokeDetailsComponent {
   }
 
   gameVersionColor(version) {
-    switch (version) {
-      case 'red':
-        return 'version-red';
-      case 'blue':
-        return 'version-blue';
-      case 'yellow':
-        return 'version-yellow';
-      case 'gold':
-        return 'version-gold';
-      case 'silver':
-        return 'version-silver';
-      case 'crystal':
-        return 'version-crystal';
-      case 'ruby':
-        return 'version-ruby';
-      case 'sapphire':
-        return 'version-sapphire';
-      case 'emerald':
-        return 'version-emerald';
-      case 'firered':
-        return 'version-firered';
-      case 'leafgreen':
-        return 'version-leafgreen';
-      case 'diamond':
-        return 'version-diamond';
-      case 'pearl':
-        return 'version-pearl';
-      case 'platinum':
-        return 'version-platinum';
-      case 'heartgold':
-        return 'version-heartgold';
-      case 'soulsilver':
-        return 'version-soulsilver';
-      case 'black':
-        return 'version-black';
-      case 'white':
-        return 'version-white';
-      case 'colosseum':
-        return 'version-colosseum';
-      case 'xd':
-        return 'version-xd';
-      case 'black-2':
-        return 'version-black-2';
-      case 'white-2':
-        return 'version-white-2';
-      case 'x':
-        return 'version-x';
-      case 'y':
-        return 'version-y';
-      case 'omega-ruby':
-        return 'version-omega-ruby';
-      case 'alpha-sapphire':
-        return 'version-alpha-sapphire';
-      case 'sun':
-        return 'version-sun';
-      case 'moon':
-        return 'version-moon';
-      default:
-        break;
-    }
+    return this.helper.getGameVersionColor(version);
   }
 
   statColor(stat) {
-    switch (stat) {
-      case 'hp':
-        return 'stat-hp';
-      case 'attack':
-        return 'stat-attack';
-      case 'defense':
-        return 'stat-defense';
-      case 'special-attack':
-        return 'stat-special-attack';
-      case 'special-defense':
-        return 'stat-special-defense';
-      case 'speed':
-        return 'stat-speed';
-      default:
-        break;
-    }
+    return this.helper.getStatColor(stat);
   }
 
   typeColor(type) {
-    switch (type) {
-      case 'normal':
-        return 'type-normal';
-      case 'fire':
-        return 'type-fire';
-      case 'water':
-        return 'type-water';
-      case 'electric':
-        return 'type-electric';
-      case 'grass':
-        return 'type-grass';
-      case 'ice':
-        return 'type-ice';
-      case 'fighting':
-        return 'type-fighting';
-      case 'poison':
-        return 'type-poison';
-      case 'ground':
-        return 'type-ground';
-      case 'flying':
-       return 'type-flying';
-      case 'psychic':
-       return 'type-psychic';
-      case 'bug':
-       return 'type-bug';
-      case 'rock':
-       return 'type-rock';
-      case 'ghost':
-       return 'type-ghost';
-      case 'dragon':
-       return 'type-dragon';
-      case 'dark':
-       return 'type-dark';
-      case 'steel':
-       return 'type-steel';
-      case 'fairy':
-       return 'type-fairy';
-      default:
-        break;
-    }
+    return this.helper.getTypeColor(type);
   }
 }

@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { PokeServiceProvider } from '../providers/poke-service/poke-service';
 import { PokeListComponent } from '../components/poke-list/poke-list';
+import { PokeHelperProvider } from '../providers/poke-helper/poke-helper';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PokeListComponent } from '../components/poke-list/poke-list';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PokeServiceProvider
+    PokeServiceProvider,
+    PokeHelperProvider
   ]
 })
 export class AppModule {}
