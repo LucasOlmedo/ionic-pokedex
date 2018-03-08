@@ -9,14 +9,14 @@ export class PokeHelperProvider {
     
   }
 
-  getAverageColor(element) {
-    let img = element;
-    var imgVibrant = Vibrant.from(img.nativeElement.src);
+  getAverageColor(sprite) {
+    let img = sprite;
+    var imgVibrant = Vibrant.from(img);
     let prominentColors = [];
     
     return imgVibrant
-      .quality(1)
-      .maxColorCount(4)
+      .quality(0)
+      .maxColorCount(2)
       .getPalette()
       .then(palette => {
         if(palette.DarkMuted != null) {
@@ -74,7 +74,7 @@ export class PokeHelperProvider {
         }
 
         let max = this.getProminentPopulationColor(prominentColors);
-        return `${max.hex}4D`;
+        return `${max.hex}59`;
       });
   }
 

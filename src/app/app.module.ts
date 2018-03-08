@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { PokeServiceProvider } from '../providers/poke-service/poke-service';
 import { PokeListComponent } from '../components/poke-list/poke-list';
 import { PokeHelperProvider } from '../providers/poke-helper/poke-helper';
+import { PokeListItemComponent } from '../components/poke-list-item/poke-list-item';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    PokeListComponent
+    PokeListComponent,
+    PokeListItemComponent
   ],
   imports: [
     BrowserModule,
