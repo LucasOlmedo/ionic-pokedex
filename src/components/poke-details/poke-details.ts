@@ -11,15 +11,18 @@ export class PokeDetailsComponent {
   @ViewChild('pokeImgRef') pokeImg: any;
   @ViewChild('main') main: any;
 
+  public layoutStyle: any;
+
   constructor(
     public navCtrl: NavController
-  ) { }
-
+  ) {  }
+  
   ngAfterViewInit() {
-    let mainStyle = this.getAverageColor();
-    mainStyle.then(style => {
-      console.log(this.main.nativeElement.style);
-    });
+    this.getAverageColor()
+      .then(style => {
+        var mainDetails = document.getElementById('mainDetails');
+        mainDetails.style.backgroundColor = style;
+      });
   }
 
   getAverageColor() {
@@ -29,7 +32,7 @@ export class PokeDetailsComponent {
     
     return imgVibrant
       .quality(1)
-      .maxColorCount(3)
+      .maxColorCount(4)
       .getPalette()
       .then(palette => {
         if(palette.DarkMuted != null) {
@@ -87,8 +90,7 @@ export class PokeDetailsComponent {
         }
 
         let max = this.getProminentPopulationColor(prominentColors);
-
-        return `background-color: ${max.hex};`;
+        return `${max.hex}4D`;
       });
   }
 
