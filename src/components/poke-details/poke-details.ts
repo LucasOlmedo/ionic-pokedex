@@ -21,11 +21,11 @@ export class PokeDetailsComponent {
   }
   
   ngAfterViewInit() {
-    this.helper.getAverageColor(this.pokeImg.nativeElement.src)
-      .then(style => {
-        var mainDetails = document.getElementById('mainDetails');
-        mainDetails.style.backgroundColor = style;
-      });
+    // this.helper.getAverageColor(this.pokeImg.nativeElement.src)
+    //   .then(style => {
+    //     var mainDetails = document.getElementById('mainDetails');
+    //     mainDetails.style.backgroundColor = style;
+    //   });
   }
 
   formatHeightWeight(value) {

@@ -74,7 +74,7 @@ export class PokeHelperProvider {
         }
 
         let max = this.getProminentPopulationColor(prominentColors);
-        return `${max.hex}59`;
+        return `${max.hex}73`;
       });
   }
 
