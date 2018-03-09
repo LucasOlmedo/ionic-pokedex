@@ -23,7 +23,9 @@ export class PokeHelperProvider {
           let vibrant = {
             name: 'DarkMuted',
             hex: palette.DarkMuted.getHex(),
-            population: palette.DarkMuted.getPopulation()
+            population: palette.DarkMuted.getPopulation(),
+            bodyText: palette.DarkMuted.getBodyTextColor(),
+            titleText: palette.DarkMuted.getTitleTextColor()
           };
           prominentColors.push(vibrant)
         }
@@ -32,7 +34,9 @@ export class PokeHelperProvider {
           let vibrant = {
             name: 'DarkVibrant',
             hex: palette.DarkVibrant.getHex(),
-            population: palette.DarkVibrant.getPopulation()
+            population: palette.DarkVibrant.getPopulation(),
+            bodyText: palette.DarkVibrant.getBodyTextColor(),
+            titleText: palette.DarkVibrant.getTitleTextColor()
           };
           prominentColors.push(vibrant)
         }
@@ -41,7 +45,9 @@ export class PokeHelperProvider {
           let vibrant = {
             name: 'LightMuted',
             hex: palette.LightMuted.getHex(),
-            population: palette.LightMuted.getPopulation()
+            population: palette.LightMuted.getPopulation(),
+            bodyText: palette.LightMuted.getBodyTextColor(),
+            titleText: palette.LightMuted.getTitleTextColor()
           };
           prominentColors.push(vibrant)
         }
@@ -50,7 +56,9 @@ export class PokeHelperProvider {
           let vibrant = {
             name: 'LightVibrant',
             hex: palette.LightVibrant.getHex(),
-            population: palette.LightVibrant.getPopulation()
+            population: palette.LightVibrant.getPopulation(),
+            bodyText: palette.LightVibrant.getBodyTextColor(),
+            titleText: palette.LightVibrant.getTitleTextColor()
           };
           prominentColors.push(vibrant)
         }
@@ -59,7 +67,9 @@ export class PokeHelperProvider {
           let vibrant = {
             name: 'Muted',
             hex: palette.Muted.getHex(),
-            population: palette.Muted.getPopulation()
+            population: palette.Muted.getPopulation(),
+            bodyText: palette.Muted.getBodyTextColor(),
+            titleText: palette.Muted.getTitleTextColor()
           };
           prominentColors.push(vibrant)
         }
@@ -68,13 +78,15 @@ export class PokeHelperProvider {
           let vibrant = {
             name: 'Vibrant',
             hex: palette.Vibrant.getHex(),
-            population: palette.Vibrant.getPopulation()
+            population: palette.Vibrant.getPopulation(),
+            bodyText: palette.Vibrant.getBodyTextColor(),
+            titleText: palette.Vibrant.getTitleTextColor()
           };
           prominentColors.push(vibrant)
         }
 
         let max = this.getProminentPopulationColor(prominentColors);
-        return `${max.hex}73`;
+        return max;
       });
   }
 
@@ -211,5 +223,15 @@ export class PokeHelperProvider {
         break;
     }
   }
+
+  formatId(id) {
+    if(id < 10) {
+      return '00'+id;
+    }
+    if(id >= 10 && id < 100){
+      return '0'+id;
+    }
+    return id;
+}
 
 }

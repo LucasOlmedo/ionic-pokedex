@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 import { Observable } from "rxjs/Rx";
+import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class HomePage {
   public singlePoke: any;
 
   constructor(
-    public pokeService: PokeServiceProvider
+    public pokeService: PokeServiceProvider,
+    public helper: PokeHelperProvider
   ) {
     
     this.pokeService.loadAPIResource(this.url + 'pokemon/')
@@ -50,7 +52,7 @@ export class HomePage {
         return this.pokeService.loadAPIResource(item.url)
           .flatMap((pokeObj : any) => {
             return Observable.of({
-              id: this.formatId(pokeObj.id),
+              id: this.helper.formatId(pokeObj.id),
               name: pokeObj.name,
               img: pokeObj.sprites.front_default,
               types: pokeObj.types.reverse(),
@@ -59,16 +61,6 @@ export class HomePage {
           });
       })
       .toArray()
-  }
-
-  formatId(id) {
-      if(id < 10) {
-        return '00'+id;
-      }
-      if(id >= 10 && id < 100){
-        return '0'+id;
-      }
-      return id;
   }
 
   doInfinite(scroll) {

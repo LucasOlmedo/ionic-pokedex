@@ -4,11 +4,11 @@
       <ion-row>
         <ion-col>
           <div class="poke-list-info">
-            <span text-capitalize text-wrap>
+            <span #nameId text-capitalize text-wrap>
               #{{poke.id}} - {{poke.name}}
             </span>
             <br>
-            <ion-badge *ngFor="let type of poke.types" [color]="typeColor(type.type.name)" style="margin-right: 3px; padding: 1px 8px 3px;">
+            <ion-badge *ngFor="let type of poke.types" [color]="typeColor(type.type.name)" style="margin-right: 3px; padding: 1px 8px 3px; box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.2);">
               <span class="badge-type" text-uppercase>{{type.type.name}}</span>
             </ion-badge>
           </div>

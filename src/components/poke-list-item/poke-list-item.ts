@@ -2,12 +2,6 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
 
-/**
- * Generated class for the PokeListItemComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'poke-list-item',
   templateUrl: 'poke-list-item.html'
@@ -16,7 +10,10 @@ export class PokeListItemComponent {
 
   @ViewChild('sprite') sprite: any;
   @ViewChild('cardItem') cardItem: any;
+  @ViewChild('nameId') nameId: any;
   @Input() poke: any;
+
+  public pokeColor: any;
 
   constructor(
     public navCtrl: NavController,
@@ -27,14 +24,17 @@ export class PokeListItemComponent {
 
   ngAfterViewInit() {
     this.helper.getAverageColor(this.sprite.nativeElement.src)
-      .then(hex => {
-        this.cardItem.nativeElement.style.backgroundColor = hex;
+      .then(color => {
+        this.cardItem.nativeElement.style.backgroundColor = `${color.hex}D9`;
+        this.nameId.nativeElement.style.color = color.bodyText;
+        this.pokeColor = color;
       });
   }
 
   getDetails(pokeUrl) {
     this.navCtrl.push("DetailsPage", {
-      pokeUrl: pokeUrl
+      pokeUrl: pokeUrl,
+      pokeColor: this.pokeColor
     });
   }
 

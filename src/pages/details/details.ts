@@ -1,13 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
-
-/**
- * Generated class for the DetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
 
 @IonicPage()
 @Component({
@@ -22,18 +16,21 @@ export class DetailsPage {
   public obj: any;
   public pokeDetails: any;
   public pageLoaded: boolean = false;
+  public pokeColor: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public pokeService: PokeServiceProvider,
+    public helper: PokeHelperProvider
   ) {
     this.pokeUrl = navParams.get('pokeUrl');
+    this.pokeColor = navParams.get('pokeColor');
     this.pokeService.loadAPIResource(this.pokeUrl)
       .subscribe(response => {
         this.obj = response;
         this.pokeDetails = {
-          id: this.obj.id,
+          id: helper.formatId(this.obj.id),
           name: this.obj.name,
           weight: this.obj.weight,
           height: this.obj.height,
@@ -44,6 +41,16 @@ export class DetailsPage {
         this.loadPokeDescription(this.obj.species.url);
       },
         error => console.error(error));
+  }
+
+  ionViewDidLoad() {
+    let element = document.getElementById('navDetails');
+    let navbar: any = element.getElementsByClassName('toolbar-background')[0];
+    let backButton: any = document.querySelector('#navDetails > button > span > ion-icon');
+    let detailsTitle: any = document.querySelector('#navDetails > div.toolbar-content.toolbar-content-md > ion-title > div');
+    navbar.style.backgroundColor = this.pokeColor.hex;
+    backButton.style.color = this.pokeColor.titleText;
+    detailsTitle.style.color = this.pokeColor.titleText;
   }
 
   loadPokeDescription(speciesUrl) {
@@ -71,9 +78,5 @@ export class DetailsPage {
           spinnerNative.style.display = 'none';
           this.pageLoaded = true;
         });
-  }
-
-  ionViewDidLoad() {
-
   }
 }
