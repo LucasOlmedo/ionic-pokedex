@@ -3,6 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { PokeServiceProvider } from './../../providers/poke-service/poke-service';
 import { Observable } from "rxjs/Rx";
 import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
+import { NavController, ToastController } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 
 
 @Component({
@@ -17,12 +19,30 @@ export class HomePage {
   public pokeList: any[];
   public controls: any;
   public url: string = 'https://pokeapi.co/api/v2/';
+  public httpError: boolean = false;
+  public httpErrorMessage: string = '';
+  public mainErrorMessage: string = '';
 
   constructor(
     public pokeService: PokeServiceProvider,
-    public helper: PokeHelperProvider
+    public helper: PokeHelperProvider,
+    public navCtrl: NavController,
+    public toast: ToastController,
+    private network: Network
   ) {
-    
+    this.httpError = false;
+    network.onDisconnect()
+      .subscribe(() => {
+        let disconnectToast = this.toast.create({
+          message: 'You are offline',
+          position: 'bottom',
+        });
+        disconnectToast.present();
+      });
+    this.getAll();
+  }
+
+  getAll() {
     this.pokeService.loadAPIResource(this.url + 'pokemon/')
       .subscribe((response: any) => {
         this.obj = response;
@@ -34,16 +54,29 @@ export class HomePage {
         this.getDetails(this.obj).subscribe(data => {
           this.pokeList = data.sort((a, b) => a.id - b.id);
         });
-      });
+      },
+        error => {
+          let spinnerNative: any = document.getElementById('spinnerLoading');
+          let refreshButton: any = document.getElementById('refreshButton');
+          spinnerNative.style.display = 'none';
+          refreshButton.style.display = 'block';
+          this.httpErrorMessage = error.message;
+          this.mainErrorMessage = 'Server is Down';
+          this.httpError = true;
+        });
+  }
+
+  refreshPage() {
+    this.navCtrl.setRoot(HomePage);
   }
 
   getDetails(obj: any) {
     var pokes = obj.results;
 
     return Observable.from(pokes)
-      .flatMap((item : any) => {
+      .flatMap((item: any) => {
         return this.pokeService.loadAPIResource(item.url)
-          .flatMap((pokeObj : any) => {
+          .flatMap((pokeObj: any) => {
             return Observable.of({
               id: this.helper.formatId(pokeObj.id),
               name: pokeObj.name,
@@ -65,21 +98,32 @@ export class HomePage {
 
       this.pokeService.loadAPIResource(this.url + 'pokemon/', requestParams)
         .subscribe(response => {
-          this.obj = response;
-          this.controls = {
-            count: this.obj.count,
-            previous: this.obj.previous,
-            next: this.obj.next
-          };
-          this.getDetails(this.obj).subscribe(data => {
+          this.getDetails(response).subscribe(data => {
             for (let index = 0; index < data.length; index++) {
               let poke = data[index];
               this.pokeList.push(poke);
             }
+            this.obj = response;
+            this.controls = {
+              count: this.obj.count,
+              previous: this.obj.previous,
+              next: this.obj.next
+            };
             this.pokeList.sort((a, b) => a.id - b.id)
             scroll.complete();
           });
-        });
+        },
+          error => {
+            scroll.complete();
+            let errorToast = this.toast.create({
+              message: 'An error has occurred, please try again',
+              position: 'bottom',
+              showCloseButton: true,
+              closeButtonText: '&times;',
+              dismissOnPageChange: true,
+            });
+            errorToast.present();
+          });
     }, 500);
   }
 }

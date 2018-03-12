@@ -9,23 +9,18 @@ export class PokeDetailsComponent {
 
   @Input() pokeDetails: any;
   @ViewChild('pokeImgRef') pokeImg: any;
-  @ViewChild('main') main: any;
 
-  public layoutStyle: any;
+  public pokeModule: string = "info";
 
   constructor(
     public navCtrl: NavController,
     public helper: PokeHelperProvider
   ) {
-
+    
   }
   
   ngAfterViewInit() {
-    // this.helper.getAverageColor(this.pokeImg.nativeElement.src)
-    //   .then(style => {
-    //     var NavBar = document.getElementsByClassName('.toolbar-background-wp');
-    //     console.log(NavBar)
-    //   });
+    
   }
 
   formatHeightWeight(value) {

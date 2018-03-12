@@ -11,19 +11,22 @@ import { PokeServiceProvider } from '../providers/poke-service/poke-service';
 import { PokeListComponent } from '../components/poke-list/poke-list';
 import { PokeHelperProvider } from '../providers/poke-helper/poke-helper';
 import { PokeListItemComponent } from '../components/poke-list-item/poke-list-item';
+import { Network } from '@ionic-native/network';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     PokeListComponent,
-    PokeListItemComponent
+    PokeListItemComponent,
+    // Network
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
     HttpClientModule,
+    // Network
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,7 +38,8 @@ import { PokeListItemComponent } from '../components/poke-list-item/poke-list-it
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PokeServiceProvider,
-    PokeHelperProvider
+    PokeHelperProvider,
+    Network
   ]
 })
 export class AppModule {}

@@ -20,6 +20,27 @@
 
   <poke-list [pokeList]="pokeList"></poke-list>
 
+  <div *ngIf="httpError" color="danger">
+    <span text-center text-uppercase >
+      <ion-icon name="warning"></ion-icon> &nbsp;&nbsp; {{mainErrorMessage}}
+    </span>
+    <span text-center>
+      <small>{{httpErrorMessage}}</small>
+    </span>
+  </div>
+  <br>
+  <button id="refreshButton" ion-button full outline style="
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    position:fixed;
+    display:none;
+  " (tap)="refreshPage()">
+    <ion-icon name="refresh"></ion-icon> &nbsp;&nbsp; Try Again
+  </button>
+
   <ion-infinite-scroll (ionInfinite)="controls.next != null ? doInfinite($event) : $event.complete()">
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
