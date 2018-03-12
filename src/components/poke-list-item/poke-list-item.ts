@@ -19,15 +19,18 @@ export class PokeListItemComponent {
     public navCtrl: NavController,
     public helper: PokeHelperProvider
   ) {
-    
+
   }
 
   ngAfterViewInit() {
     this.helper.getAverageColor(this.sprite.nativeElement.src)
-      .then(color => {
-        this.cardItem.nativeElement.style.backgroundColor = `${color.hex}D9`;
+    .then(color => {
+        this.cardItem.nativeElement.style.backgroundColor = `${color.hex}CC`;
         this.nameId.nativeElement.style.color = color.bodyText;
         this.pokeColor = color;
+        let spinnerNative: any = document.getElementById('spinnerLoading');
+        spinnerNative.style.display = 'none';
+        this.cardItem.nativeElement.style.display = 'block';
       });
   }
 

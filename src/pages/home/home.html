@@ -9,7 +9,7 @@
 
 <ion-content class="list-body">
 
-  <ion-spinner #spinner name="crescent" style="
+  <ion-spinner id="spinnerLoading" name="crescent" style="
     margin:auto;
     top:0;
     bottom:0;
@@ -18,7 +18,7 @@
     position:fixed;
   "></ion-spinner>
 
-  <poke-list *ngIf="pageLoaded" [pokeList]="pokeList"></poke-list>
+  <poke-list [pokeList]="pokeList"></poke-list>
 
   <ion-infinite-scroll (ionInfinite)="controls.next != null ? doInfinite($event) : $event.complete()">
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>

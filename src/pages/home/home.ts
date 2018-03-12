@@ -17,10 +17,6 @@ export class HomePage {
   public pokeList: any[];
   public controls: any;
   public url: string = 'https://pokeapi.co/api/v2/';
-  public hasMoreData: boolean = true;
-  public pageLoaded: boolean = false;
-  public extraInfoPoke: any;
-  public singlePoke: any;
 
   constructor(
     public pokeService: PokeServiceProvider,
@@ -36,9 +32,6 @@ export class HomePage {
           previous: this.obj.previous
         };
         this.getDetails(this.obj).subscribe(data => {
-          let spinnerNative = this.spinner._elementRef.nativeElement;
-          spinnerNative.style.display = 'none';
-          this.pageLoaded = true;
           this.pokeList = data.sort((a, b) => a.id - b.id);
         });
       });
