@@ -22,6 +22,7 @@ export class HomePage {
   public httpError: boolean = false;
   public httpErrorMessage: string = '';
   public mainErrorMessage: string = '';
+  public disconnectToast: any = null;
 
   constructor(
     public pokeService: PokeServiceProvider,
@@ -33,11 +34,19 @@ export class HomePage {
     this.httpError = false;
     network.onDisconnect()
       .subscribe(() => {
-        let disconnectToast = this.toast.create({
+        this.disconnectToast = this.toast.create({
           message: 'You are offline',
           position: 'bottom',
         });
-        disconnectToast.present();
+        this.disconnectToast.present();
+      });
+
+    network.onConnect()
+      .subscribe(() => {
+        if(this.disconnectToast != null){
+          this.disconnectToast.dismiss();
+          this.disconnectToast = null;
+        }
       });
     this.getAll();
   }
@@ -56,13 +65,13 @@ export class HomePage {
         });
       },
         error => {
+          this.httpError = true;
           let spinnerNative: any = document.getElementById('spinnerLoading');
           let refreshButton: any = document.getElementById('refreshButton');
           spinnerNative.style.display = 'none';
-          refreshButton.style.display = 'block';
+          // refreshButton.style.display = 'block';
           this.httpErrorMessage = error.message;
           this.mainErrorMessage = 'Server is Down';
-          this.httpError = true;
         });
   }
 

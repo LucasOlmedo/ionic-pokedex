@@ -13,15 +13,15 @@
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-segment [(ngModel)]="pokeModule">
-        <ion-segment-button value="info">
+      <ion-segment [(ngModel)]="pokeModule" #infoSegment>
+        <ion-segment-button value="info" id="segment-button-info">
           <ion-icon name="information-circle"></ion-icon>
         </ion-segment-button>
-        <ion-segment-button value="moves">
-          <ion-icon name="star-outline"></ion-icon>
+        <ion-segment-button value="moves" id="segment-button-moves">
+          <ion-icon name="star"></ion-icon>
         </ion-segment-button>
-        <ion-segment-button value="more">
-          <ion-icon name="add"></ion-icon>
+        <ion-segment-button value="more" id="segment-button-more">
+          <ion-icon name="more"></ion-icon>
         </ion-segment-button>
       </ion-segment>
     </ion-col>
@@ -61,29 +61,30 @@
             Info
           </div>
           <hr>
-          <ion-card style="border-radius: 5px;">
-            <ion-card-content>
+          <ion-row>
+            <ion-col text-center text-wrap text-capitalize col-6>
+              <span style="font-size:small">{{pokeDetails.genus}}</span>
+            </ion-col>
+            <ion-col text-center col-6>
               <div class="poke-info">
-                <ion-icon name="resize" item-start></ion-icon>
-                <span margin-left>
-                  &nbsp;&nbsp; {{formatHeightWeight(pokeDetails.height)}} m
-                </span>
-              </div>
-              <div class="poke-info">
-                <ion-icon name="pint" item-start></ion-icon>
-                <span margin-left>
-                  &nbsp;&nbsp; {{formatHeightWeight(pokeDetails.weight)}} Kg
-                </span>
-              </div>
-              <div class="poke-info">
-                <ion-icon name="pricetags" item-start padding-right></ion-icon>
-                &nbsp;&nbsp;
                 <ion-badge *ngFor="let type of pokeDetails.types" [color]="typeColor(type.type.name)" style="margin-right: 5px;">
                   <span text-uppercase>{{type.type.name}}</span>
                 </ion-badge>
               </div>
-            </ion-card-content>
-          </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-center text-wrap col-6>
+              <span>{{formatHeightWeight(pokeDetails.height)}} m</span>
+              <br>
+              <small style="color:grey;">Height</small>
+            </ion-col>
+            <ion-col text-center text-wrap col-6>
+              <span>{{formatHeightWeight(pokeDetails.weight)}} Kg</span>
+              <br>
+              <small style="color:grey;">Weight</small>
+            </ion-col>
+          </ion-row>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -118,7 +119,24 @@
       </ion-row>
     </div>
     <div *ngSwitchCase="'moves'">
-      moves...
+      <ion-row>
+        <ion-col>
+          <div text-uppercase margin-top padding-left>
+            Move list
+          </div>
+        </ion-col>
+      </ion-row>
+      <hr>
+      <br>
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <button ion-item *ngFor="let item of pokeDetails.moves" style="background:transparent;">
+              <span text-capitalize>{{item.move.name.replace('-', ' ')}}</span>
+            </button>
+          </ion-list>
+        </ion-col>
+      </ion-row>
     </div>
     <div *ngSwitchCase="'more'">
       more...

@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
 @Component({
   selector: 'poke-details',
@@ -9,18 +9,80 @@ export class PokeDetailsComponent {
 
   @Input() pokeDetails: any;
   @ViewChild('pokeImgRef') pokeImg: any;
+  @ViewChild('infoSegment') infoSegment: any;
 
   public pokeModule: string = "info";
 
   constructor(
     public navCtrl: NavController,
-    public helper: PokeHelperProvider
+    public helper: PokeHelperProvider,
+    public platform: Platform
   ) {
-    
-  }
   
-  ngAfterViewInit() {
-    
+  }
+
+  ngOnInit() {
+    this.customSegmentByPlatform();
+  }
+
+  customSegmentByPlatform() {
+    let segment: any = this.infoSegment.nativeElement;
+    let element: any = document.getElementById('navDetails');
+    let navbar: any = element.getElementsByClassName('toolbar-background')[0];
+
+    if(this.platform.is('android')){
+      let nodes = segment.children;
+      let documentStyleSheets: any = document.styleSheets;
+      for (let index = 0; index < nodes.length; index++) {
+        let element = nodes[index];
+        element.style.color = navbar.style.backgroundColor;
+      }
+      for (let index = 0; index < documentStyleSheets.length; index++) {
+        let sheet: any = documentStyleSheets[index];
+        for (let aux = 0; aux < sheet.rules.length; aux++) {
+          let rule = sheet.rules[aux];
+          if(rule.selectorText == 'ion-segment-button.segment-activated'){
+            sheet.removeRule(aux);
+          }
+        }
+        if("addRule" in sheet) {
+          sheet.addRule("ion-segment-button.segment-activated", `border-color: ${navbar.style.backgroundColor} !important`, 1);
+        }else if("insertRule" in sheet){
+          sheet.insertRule(`ion-segment-button.segment-activated { border-color: ${navbar.style.backgroundColor} !important; }`, 1);
+        }
+      }
+    }
+    if(this.platform.is('ios')){
+      let nodes = segment.children;
+      let documentStyleSheets: any = document.styleSheets;
+      for (let index = 0; index < nodes.length; index++) {
+        let element = nodes[index];
+        element.style.borderColor = navbar.style.backgroundColor;
+        element.style.color = navbar.style.backgroundColor;
+        for (let index = 0; index < documentStyleSheets.length; index++) {
+          let sheet: any = documentStyleSheets[index];
+          for (let aux = 0; aux < sheet.rules.length; aux++) {
+            let rule = sheet.rules[aux];
+            if(rule.selectorText == 'ion-segment-button.segment-activated'){
+              sheet.removeRule(aux);
+            }
+          }
+          if("addRule" in sheet) {
+            sheet.addRule("ion-segment-button.segment-activated", `color: #fff !important; background: ${navbar.style.backgroundColor} !important`, 1);
+          }else if("insertRule" in sheet){
+            sheet.insertRule(`ion-segment-button.segment-activated { color: #fff !important; background: ${navbar.style.backgroundColor} !important; }`, 1);
+          }
+        }
+      }
+    }
+    if(this.platform.is('windows')){
+      segment.style.justifyContent = 'space-evenly';
+      let nodes = segment.children;
+      for (let index = 0; index < nodes.length; index++) {
+        let element = nodes[index];
+        element.style.color = navbar.style.backgroundColor;
+      }
+    }
   }
 
   formatHeightWeight(value) {
@@ -51,5 +113,9 @@ export class PokeDetailsComponent {
 
   typeColor(type) {
     return this.helper.getTypeColor(type);
+  }
+
+  formatMoveName(moveName) {
+    return moveName.toString().replace('-', ' ');
   }
 }

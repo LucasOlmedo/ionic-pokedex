@@ -13,26 +13,28 @@
     position:fixed;
   "></ion-spinner>
 
-  <div *ngIf="httpError" color="danger">
-    <span text-center text-uppercase>
+  <div *ngIf="httpError" color="danger" style="
+    margin: auto;
+    /* top: 0px; */
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    position: fixed;
+    text-align: center;
+    color: darkred;
+  ">
+    <span text-wrap text-uppercase>
       <ion-icon name="warning"></ion-icon> &nbsp;&nbsp; {{mainErrorMessage}}
     </span>
-    <span text-center>
+    <br>
+    <span text-wrap>
       <small>{{httpErrorMessage}}</small>
     </span>
+    <br>
+    <button id="refreshButton" full ion-button color="primary" (tap)="refreshPage()">
+      <ion-icon name="refresh"></ion-icon> &nbsp;&nbsp; Try Again
+    </button>
   </div>
-  <br>
-  <button id="refreshButton" ion-button full outline style="
-      margin:auto;
-      top:0;
-      bottom:0;
-      left:0;
-      right:0;
-      position:fixed;
-      display:none;
-    " (tap)="refreshPage()">
-    <ion-icon name="refresh"></ion-icon> &nbsp;&nbsp; Try Again
-  </button>
 
   <poke-details *ngIf="pageLoaded" [pokeDetails]="pokeDetails"></poke-details>
 </ion-content>

@@ -44,17 +44,18 @@ export class DetailsPage {
             img: this.obj.sprites.front_default,
             types: this.obj.types.reverse(),
             stats: this.obj.stats.reverse(),
+            moves: this.obj.moves,
           };
           this.loadPokeDescription(this.obj.species.url);
         },
           error => {
+            this.httpError = true;
             let spinnerNative = this.spinner._elementRef.nativeElement;
             spinnerNative.style.display = 'none';
             let refreshButton: any = document.getElementById('refreshButton');
             refreshButton.style.display = 'block';
             this.httpErrorMessage = error.message;
             this.mainErrorMessage = 'Server is Down';
-            this.httpError = true;
           });
     }else{
       let disconnectToast = this.toast.create({
@@ -68,8 +69,9 @@ export class DetailsPage {
   ionViewDidLoad() {
     let element = document.getElementById('navDetails');
     let navbar: any = element.getElementsByClassName('toolbar-background')[0];
-    let backButton: any = document.querySelector('#navDetails > button > span > ion-icon');
-    let detailsTitle: any = document.querySelector('#navDetails > div.toolbar-content.toolbar-content-md > ion-title > div');
+    let backButton: any = document.querySelector('#navDetails > button > span');
+    let detailsTitle: any = document.querySelector('#navDetails > div.toolbar-content > ion-title > div');
+
     navbar.style.backgroundColor = this.pokeColor.hex;
     backButton.style.color = this.pokeColor.titleText;
     detailsTitle.style.color = this.pokeColor.titleText;
@@ -91,17 +93,21 @@ export class DetailsPage {
             description: item.flavor_text
           };
         });
+        let pokemonGen = species.genera.filter(gen => {
+          return gen.language.name == 'en';
+        });
         this.pokeDetails.dex = englishTextGroup;
+        this.pokeDetails.genus = pokemonGen[0].genus;
         return this.pokeDetails;
       },
         error => {
+          this.httpError = true;
           let spinnerNative = this.spinner._elementRef.nativeElement;
           spinnerNative.style.display = 'none';
           let refreshButton: any = document.getElementById('refreshButton');
           refreshButton.style.display = 'block';
           this.httpErrorMessage = error.message;
           this.mainErrorMessage = 'Server is Down';
-          this.httpError = true;
         },
         () => {
           let spinnerNative = this.spinner._elementRef.nativeElement;
@@ -111,7 +117,7 @@ export class DetailsPage {
   }
 
   refreshPage() {
-    this.navCtrl.popAll();
+    this.navCtrl.pop();
     this.navCtrl.push(DetailsPage);
   }
 }

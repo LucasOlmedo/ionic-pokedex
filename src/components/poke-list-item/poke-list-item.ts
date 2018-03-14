@@ -24,9 +24,8 @@ export class PokeListItemComponent {
 
   ngAfterViewInit() {
     this.helper.getAverageColor(this.sprite.nativeElement.src)
-    .then(color => {
-        this.cardItem.nativeElement.style.backgroundColor = `${color.hex}D9`;
-        this.nameId.nativeElement.style.color = color.bodyText;
+      .then(color => {
+        this.cardItem.nativeElement.style.backgroundColor = `${color.hex}B3`;
         this.pokeColor = color;
         let spinnerNative: any = document.getElementById('spinnerLoading');
         spinnerNative.style.display = 'none';
