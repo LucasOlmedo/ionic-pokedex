@@ -1,6 +1,8 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, ModalController } from 'ionic-angular';
 import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
+import { PokeServiceProvider } from '../../providers/poke-service/poke-service';
+import { MoveDetailsPage } from '../../pages/move-details/move-details';
 @Component({
   selector: 'poke-details',
   templateUrl: 'poke-details.html',
@@ -16,7 +18,9 @@ export class PokeDetailsComponent {
   constructor(
     public navCtrl: NavController,
     public helper: PokeHelperProvider,
-    public platform: Platform
+    public platform: Platform,
+    public pokeService: PokeServiceProvider,
+    public modalMove: ModalController
   ) {
   
   }
@@ -115,7 +119,10 @@ export class PokeDetailsComponent {
     return this.helper.getTypeColor(type);
   }
 
-  formatMoveName(moveName) {
-    return moveName.toString().replace('-', ' ');
+  showMove(item) {
+    var moveDetails = this.modalMove.create('MoveDetailsPage', {
+      move: item
+    });
+    moveDetails.present();
   }
 }

@@ -131,7 +131,7 @@
       <ion-row>
         <ion-col>
           <ion-list>
-            <button ion-item *ngFor="let item of pokeDetails.moves" style="background:transparent;">
+            <button ion-item *ngFor="let item of pokeDetails.moves" style="background:transparent;" (tap)="showMove(item)">
               <span text-capitalize>{{item.move.name.replace('-', ' ')}}</span>
             </button>
           </ion-list>

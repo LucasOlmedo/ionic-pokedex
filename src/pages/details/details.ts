@@ -44,7 +44,7 @@ export class DetailsPage {
             img: this.obj.sprites.front_default,
             types: this.obj.types.reverse(),
             stats: this.obj.stats.reverse(),
-            moves: this.obj.moves,
+            moves: this.obj.moves.sort((a, b) => a.move.name.localeCompare(b.move.name)),
           };
           this.loadPokeDescription(this.obj.species.url);
         },
