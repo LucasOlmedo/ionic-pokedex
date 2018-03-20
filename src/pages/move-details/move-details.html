@@ -5,20 +5,20 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title text-capitalize text-wrap>
-      {{move.move.name.replace('-', ' ')}}
+      Move Details
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="closeModal()">
-        <span ion-text text-uppercase color="primary">close</span>
+        <span ion-text text-uppercase>close</span>
       </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content padding>
+<ion-content padding style="background: #ebf1fc;">
 
-    <ion-spinner #spinner name="crescent" style="
+  <ion-spinner #spinner name="crescent" style="
     margin:auto;
     top:0;
     bottom:0;
@@ -28,11 +28,67 @@
   "></ion-spinner>
 
   <div *ngIf="modalLoaded">
-    <p>
-      <strong>Power:</strong> {{moveDetails.power}}
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <span text-left text-capitalize>
+            <h4>{{formatName(moveDetails.name)}}</h4>
+            <hr>
+          </span>
+        </ion-col>
+      </ion-row>
       <br>
-      <strong>PP:</strong> {{moveDetails.pp}}
+      <ion-row text-center>
+        <ion-col col-7>
+          <ion-badge style="display:block; padding:7px;" [color]="typeColor(moveDetails.type.name)">
+            <span text-center text-uppercase>
+              {{moveDetails.type.name}}
+            </span>
+          </ion-badge>
+        </ion-col>
+        <ion-col col-5>
+          <ion-badge style="display:block; padding:7px;" [color]="damageClassColor(moveDetails.damage_class.name)">
+            <span text-center text-uppercase>
+              {{moveDetails.damage_class.name}}
+            </span>
+          </ion-badge>
+        </ion-col>
+      </ion-row>
       <br>
-    </p>
+      <ion-row text-center>
+        <ion-col col-4>
+          <span text-center text-capitalize>
+            {{!!moveDetails.accuracy ? moveDetails.accuracy : '-'}}
+            <br>
+            <small style="color:grey">accuracy</small>
+          </span>
+        </ion-col>
+        <ion-col col-4>
+          <span text-center text-capitalize>
+            {{moveDetails.power ? moveDetails.power : '-'}}
+            <br>
+            <small style="color:grey">power</small>
+          </span>
+        </ion-col>
+        <ion-col col-4>
+          <span text-center text-capitalize>
+            {{moveDetails.pp ? moveDetails.pp : '-'}}
+            <br>
+            <small style="color:grey">PP</small>
+          </span>
+        </ion-col>
+      </ion-row>
+      <br>
+      <ion-row>
+        <ion-col>
+          <span text-wrap text-left>
+            <br>
+            <hr>
+            <br>
+            {{moveDetails.effect_entries[0].short_effect}}
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

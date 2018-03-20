@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { PokeServiceProvider } from '../../providers/poke-service/poke-service';
+import { PokeHelperProvider } from '../../providers/poke-helper/poke-helper';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,8 @@ export class MoveDetailsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public pokeService: PokeServiceProvider
+    public pokeService: PokeServiceProvider,
+    public helper: PokeHelperProvider
   ) {
     this.move = this.navParams.get('move');
   }
@@ -31,7 +33,7 @@ export class MoveDetailsPage {
     this.pokeService.loadAPIResource(moveUrl)
       .subscribe(response => {
         this.moveDetails = response;
-        console.log(this.moveDetails);
+        console.log(this.moveDetails)
       },
       error => console.error(error),
       () => {
@@ -43,5 +45,17 @@ export class MoveDetailsPage {
 
   closeModal() {
     this.viewCtrl.dismiss();
+  }
+
+  formatName(name) {
+    return name.toString().replace('-', ' ');
+  }
+
+  typeColor(type) {
+    return this.helper.getTypeColor(type);
+  }
+
+  damageClassColor(damageClass) {
+    return this.helper.getDamageClassColor(damageClass);
   }
 }

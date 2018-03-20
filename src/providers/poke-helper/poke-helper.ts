@@ -224,6 +224,19 @@ export class PokeHelperProvider {
     }
   }
 
+  getDamageClassColor(damageClass) {
+    switch (damageClass) {
+      case 'status':
+        return 'damage-class-status';
+      case 'special':
+        return 'damage-class-special';
+      case 'physical':
+        return 'damage-class-physical';
+      default:
+        break;
+    }
+  }
+
   formatId(id) {
     if(id < 10) {
       return '00'+id;
