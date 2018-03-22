@@ -12,6 +12,7 @@ import { PokeListComponent } from '../components/poke-list/poke-list';
 import { PokeHelperProvider } from '../providers/poke-helper/poke-helper';
 import { PokeListItemComponent } from '../components/poke-list-item/poke-list-item';
 import { Network } from '@ionic-native/network';
+import { PopoverAbilityPage } from '../components/poke-details/poke-details';
 
 @NgModule({
   declarations: [
@@ -19,19 +20,19 @@ import { Network } from '@ionic-native/network';
     HomePage,
     PokeListComponent,
     PokeListItemComponent,
-    // Network
+    PopoverAbilityPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
     HttpClientModule,
-    // Network
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
+    PopoverAbilityPage
   ],
   providers: [
     StatusBar,

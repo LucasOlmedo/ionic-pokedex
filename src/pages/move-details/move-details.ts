@@ -51,6 +51,11 @@ export class MoveDetailsPage {
     return name.toString().replace('-', ' ');
   }
 
+  formatEffectDescription(description) {
+    let desc = description; 
+    return desc.replace('$effect_chance', this.moveDetails.effect_chance);
+  }
+
   typeColor(type) {
     return this.helper.getTypeColor(type);
   }
