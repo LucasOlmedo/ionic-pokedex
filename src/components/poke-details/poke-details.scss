@@ -82,6 +82,33 @@ progress.stat-speed::-webkit-progress-value {
   border-radius: 10px;
 }
 
+/* fab style */
+
+.fab {
+  contain: initial !important;
+}
+
+ion-fab {
+    ion-fab-list button[ion-fab] {
+        overflow: visible !important;
+
+        div.label {
+          position: absolute !important;
+          right: 48px !important;
+          background: rgba(0,0,0,0.7) !important;
+          height: 24px !important;
+          line-height: 16px !important;
+          padding-left: 8px !important;
+          padding-right: 8px !important;
+          padding-top: 5px !important;
+          padding-bottom: 5px !important;
+          border-radius: 3px !important;
+          color: #fff !important;
+          box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1) !important;
+        }
+    }
+}
+
 /* dex slides */
 
 .version-alpha-sapphire {

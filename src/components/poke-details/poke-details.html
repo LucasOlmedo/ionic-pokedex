@@ -94,10 +94,11 @@
           </div>
           <hr>
           <div class="abilities-info" text-center>
-            <button ion-button text-capitalize *ngFor="let abilities of pokeDetails.abilities" style="margin-right: 5px;" color="dark" (tap)="showAbiltyDetails(abilities)">
+            <button ion-button text-capitalize *ngFor="let abilities of pokeDetails.abilities" style="margin-right: 5px;" color="dark"
+              (tap)="showAbiltyDetails(abilities)">
               <span *ngIf="abilities.is_hidden">
                 <ion-icon name="flash"></ion-icon>
-                &nbsp; 
+                &nbsp;
               </span>
               {{abilities.ability.name.replace('-', ' ')}}
             </button>
@@ -136,6 +137,25 @@
       </ion-row>
     </div>
     <div *ngSwitchCase="'moves'">
+      <ion-fab right bottom style="z-index: 9999; position: fixed; bottom: 15px; right: 25px;">
+        <button ion-fab>
+          <ion-icon name="funnel"></ion-icon>
+        </button>
+        <ion-fab-list side="top">
+          <button ion-fab color="sunny">
+            <ion-icon name="disc"></ion-icon>
+            <div class="label">Machine</div>
+          </button>
+          <button ion-fab color="mountain">
+            <ion-icon name="arrow-up"></ion-icon>
+            <div class="label">Level Up</div>
+          </button>
+          <button ion-fab color="river">
+            <ion-icon name="color-wand"></ion-icon>
+            <div class="label">Tutor</div>
+          </button>
+        </ion-fab-list>
+      </ion-fab>
       <ion-row>
         <ion-col>
           <div text-uppercase margin-top padding-left>
