@@ -121,9 +121,26 @@ export class PokeDetailsComponent {
     return this.helper.getTypeColor(type);
   }
 
+  formatUniqueLearnMethod(move){
+    let seen = new Set;
+    let unique = [];
+    for(let value of move.version_group_details) {
+      if(seen.has(value.move_learn_method.name)){
+        continue;
+      }else{
+        unique.push(value);
+        seen.add(value.move_learn_method.name);
+      }
+    }
+
+    return unique;
+  }
+
   showMove(item) {
+   let learn =  this.formatUniqueLearnMethod(item);
     var moveDetails = this.modalMove.create('MoveDetailsPage', {
-      move: item
+      move: item,
+      moveLearnMethods: learn
     });
     moveDetails.present();
   }

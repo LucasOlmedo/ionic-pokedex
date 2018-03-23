@@ -12,6 +12,7 @@ export class MoveDetailsPage {
 
   @ViewChild('spinner') spinner: any;
   public move: any;
+  public learnMethod: any;
   public moveDetails: any;
   public modalLoaded: boolean = false;
 
@@ -23,6 +24,7 @@ export class MoveDetailsPage {
     public helper: PokeHelperProvider
   ) {
     this.move = this.navParams.get('move');
+    this.learnMethod = this.navParams.get('moveLearnMethods');
   }
 
   ionViewWillLoad() {
@@ -32,8 +34,18 @@ export class MoveDetailsPage {
   getMove(moveUrl){
     this.pokeService.loadAPIResource(moveUrl)
       .subscribe(response => {
-        this.moveDetails = response;
-        console.log(this.moveDetails)
+        let mv: any = response;
+        this.moveDetails = {
+          name: mv.name,
+          type: mv.type,
+          damage_class: mv.damage_class,
+          accuracy: mv.accuracy,
+          power: mv.power,
+          pp: mv.pp,
+          effect_entries: mv.effect_entries,
+          effect_chance: mv.effect_chance,
+          learn_method: this.learnMethod
+        };
       },
       error => console.error(error),
       () => {
@@ -52,8 +64,8 @@ export class MoveDetailsPage {
   }
 
   formatEffectDescription(description) {
-    let desc = description; 
-    return desc.replace('$effect_chance', this.moveDetails.effect_chance);
+    let desc = description;
+    return desc.replace(/\$effect_chance/gi, this.moveDetails.effect_chance);
   }
 
   typeColor(type) {

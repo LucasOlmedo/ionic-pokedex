@@ -38,6 +38,27 @@
         </ion-col>
       </ion-row>
       <br>
+      <ion-row>
+        <ion-col text-center>
+          <span text-center>
+            <ion-badge *ngFor="let learn of moveDetails.learn_method" style="margin-right: 2px; margin-left: 2px;" text-center>
+              <span text-uppercase>
+                {{learn.move_learn_method.name.replace('-', ' ')}}
+                <br>
+                <small style="color: #000; font-weight: 500;">
+                  {{learn.move_learn_method.name == 'level-up' ? 'at level '+ learn.level_learned_at : ''}}
+                </small>
+              </span>
+            </ion-badge>
+            <br>
+            <small style="color:grey">
+              Learn Method
+              <br>
+            </small>
+          </span>
+        </ion-col>
+      </ion-row>
+      <br>
       <ion-row text-center>
         <ion-col col-7>
           <ion-badge style="display:block; padding:7px;" [color]="typeColor(moveDetails.type.name)">
@@ -83,8 +104,8 @@
         <ion-col>
           <span text-wrap text-left>
             <hr>
-            <br>
-            {{formatEffectDescription(moveDetails.effect_entries[0].short_effect)}}
+            <br> {{formatEffectDescription(moveDetails.effect_entries[0].short_effect)}}
+            <hr>
           </span>
         </ion-col>
       </ion-row>
