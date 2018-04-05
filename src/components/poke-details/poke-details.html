@@ -170,6 +170,13 @@
           <ion-list>
             <button ion-item *ngFor="let item of pokeDetails.moves" style="background:transparent;" (tap)="showMove(item)">
               <span text-capitalize>{{item.move.name.replace('-', ' ')}}</span>
+              <span *ngFor="let learn of formatUniqueLearnMethod(item)">
+                <ion-badge float-right [color]="learnMethodColor(learn.move_learn_method.name)" style="margin-right: 3px;">
+                  <span text-center text-uppercase style="font-size: 9px;">
+                    {{learn.move_learn_method.name.replace('-', ' ')}}
+                  </span>
+                </ion-badge>
+              </span>
             </button>
           </ion-list>
         </ion-col>

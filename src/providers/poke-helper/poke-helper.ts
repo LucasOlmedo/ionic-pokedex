@@ -6,20 +6,20 @@ import Vibrant from 'node-vibrant';
 export class PokeHelperProvider {
 
   constructor(public http: HttpClient) {
-    
+
   }
 
   getAverageColor(sprite) {
     let img = sprite;
     var imgVibrant = Vibrant.from(img);
     let prominentColors = [];
-    
+
     return imgVibrant
       .quality(0)
       .maxColorCount(2)
       .getPalette()
       .then(palette => {
-        if(palette.DarkMuted != null) {
+        if (palette.DarkMuted != null) {
           let vibrant = {
             name: 'DarkMuted',
             hex: palette.DarkMuted.getHex(),
@@ -202,23 +202,23 @@ export class PokeHelperProvider {
       case 'ground':
         return 'type-ground';
       case 'flying':
-       return 'type-flying';
+        return 'type-flying';
       case 'psychic':
-       return 'type-psychic';
+        return 'type-psychic';
       case 'bug':
-       return 'type-bug';
+        return 'type-bug';
       case 'rock':
-       return 'type-rock';
+        return 'type-rock';
       case 'ghost':
-       return 'type-ghost';
+        return 'type-ghost';
       case 'dragon':
-       return 'type-dragon';
+        return 'type-dragon';
       case 'dark':
-       return 'type-dark';
+        return 'type-dark';
       case 'steel':
-       return 'type-steel';
+        return 'type-steel';
       case 'fairy':
-       return 'type-fairy';
+        return 'type-fairy';
       default:
         break;
     }
@@ -237,14 +237,27 @@ export class PokeHelperProvider {
     }
   }
 
-  formatId(id) {
-    if(id < 10) {
-      return '00'+id;
+  getLearnMethodColor(learnMethod) {
+    switch (learnMethod) {
+      case 'tutor':
+        return 'river';
+      case 'machine':
+        return 'sunny';
+      case 'level-up':
+        return 'mountain';
+      default:
+        break;
     }
-    if(id >= 10 && id < 100){
-      return '0'+id;
+  }
+
+  formatId(id) {
+    if (id < 10) {
+      return '00' + id;
+    }
+    if (id >= 10 && id < 100) {
+      return '0' + id;
     }
     return id;
-}
+  }
 
 }

@@ -17,7 +17,7 @@ export class MoveDetailsPage {
   public modalLoaded: boolean = false;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public pokeService: PokeServiceProvider,
@@ -31,7 +31,7 @@ export class MoveDetailsPage {
     this.getMove(this.move.move.url)
   }
 
-  getMove(moveUrl){
+  getMove(moveUrl) {
     this.pokeService.loadAPIResource(moveUrl)
       .subscribe(response => {
         let mv: any = response;
@@ -47,12 +47,12 @@ export class MoveDetailsPage {
           learn_method: this.learnMethod
         };
       },
-      error => console.error(error),
-      () => {
+        error => console.error(error),
+        () => {
           let spinnerNative = this.spinner._elementRef.nativeElement;
           spinnerNative.style.display = 'none';
           this.modalLoaded = true;
-      });
+        });
   }
 
   closeModal() {
@@ -74,5 +74,9 @@ export class MoveDetailsPage {
 
   damageClassColor(damageClass) {
     return this.helper.getDamageClassColor(damageClass);
+  }
+
+  learnMethodColor(learnMethod) {
+    return this.helper.getLearnMethodColor(learnMethod);
   }
 }

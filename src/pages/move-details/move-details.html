@@ -41,11 +41,12 @@
       <ion-row>
         <ion-col text-center>
           <span text-center>
-            <ion-badge *ngFor="let learn of moveDetails.learn_method" style="margin-right: 2px; margin-left: 2px;" text-center>
+            <ion-badge *ngFor="let learn of moveDetails.learn_method" style="margin-right: 2px; margin-left: 2px;" [color]="learnMethodColor(learn.move_learn_method.name)"
+              text-center>
               <span text-uppercase>
                 {{learn.move_learn_method.name.replace('-', ' ')}}
                 <br>
-                <small style="color: #000; font-weight: 500;">
+                <small style="font-weight: 500;">
                   {{learn.move_learn_method.name == 'level-up' ? 'at level '+ learn.level_learned_at : ''}}
                 </small>
               </span>
