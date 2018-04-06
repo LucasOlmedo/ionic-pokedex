@@ -260,4 +260,28 @@ export class PokeHelperProvider {
     return id;
   }
 
+  filterMoveList(keys, moveList) {
+    return moveList.filter(move => {
+      let learnMethod: any = this.formatUniqueLearnMethod(move);
+      return keys.every(kw => learnMethod.some(
+        learn => learn.move_learn_method.name === kw 
+      ));
+    });
+  }
+
+  formatUniqueLearnMethod(move) {
+    let seen = new Set;
+    let unique = [];
+    for (let value of move.version_group_details) {
+      if (seen.has(value.move_learn_method.name)) {
+        continue;
+      } else {
+        unique.push(value);
+        seen.add(value.move_learn_method.name);
+      }
+    }
+
+    return unique;
+  }
+
 }

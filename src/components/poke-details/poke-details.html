@@ -142,15 +142,15 @@
           <ion-icon name="funnel"></ion-icon>
         </button>
         <ion-fab-list side="top">
-          <button ion-fab color="sunny">
+          <button ion-fab color="sunny" id="filter-machine" filter="machine" (tap)="filterMoves('machine')">
             <ion-icon name="disc"></ion-icon>
             <div class="label">Machine</div>
           </button>
-          <button ion-fab color="mountain">
+          <button ion-fab color="mountain" id="filter-level-up" filter="level-up" (tap)="filterMoves('level-up')">
             <ion-icon name="arrow-up"></ion-icon>
             <div class="label">Level Up</div>
           </button>
-          <button ion-fab color="river">
+          <button ion-fab color="river" id="filter-tutor" filter="tutor" (tap)="filterMoves('tutor')">
             <ion-icon name="color-wand"></ion-icon>
             <div class="label">Tutor</div>
           </button>

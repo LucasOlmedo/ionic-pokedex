@@ -15,6 +15,7 @@ export class PokeDetailsComponent {
 
   public pokeModule: string = "info";
   public pokemonAbility: any;
+  public originalMoves: any;
 
   constructor(
     public navCtrl: NavController,
@@ -29,6 +30,10 @@ export class PokeDetailsComponent {
 
   ngOnInit() {
     this.customSegmentByPlatform();
+  }
+
+  ngAfterViewInit() {
+    this.originalMoves = this.pokeDetails.moves;
   }
 
   customSegmentByPlatform() {
@@ -126,18 +131,7 @@ export class PokeDetailsComponent {
   }
 
   formatUniqueLearnMethod(move) {
-    let seen = new Set;
-    let unique = [];
-    for (let value of move.version_group_details) {
-      if (seen.has(value.move_learn_method.name)) {
-        continue;
-      } else {
-        unique.push(value);
-        seen.add(value.move_learn_method.name);
-      }
-    }
-
-    return unique;
+    return this.helper.formatUniqueLearnMethod(move);
   }
 
   showMove(item) {
@@ -154,6 +148,42 @@ export class PokeDetailsComponent {
       abilityDetails: ability
     });
     popoverAbility.present();
+  }
+
+  filterMoves(ref) {
+    let element = document.getElementById('filter-' + ref);
+    let elementClass = element.classList;
+    let classActive = "fab-filter-moves-active";
+    let containsClass = elementClass.contains(classActive);
+
+    if (containsClass) {
+      elementClass.remove(classActive);
+    } else {
+      elementClass.add(classActive);
+    }
+
+    let activeElements: any = document.getElementsByClassName('fab-filter-moves-active');
+    let filter = [];
+
+    if (activeElements.length > 0) {
+      filter = this.extractFilters(activeElements);
+    }
+
+    if(filter.length > 0){
+      return this.pokeDetails.moves = this.helper.filterMoveList(filter, this.originalMoves);
+    }else{
+      return this.pokeDetails.moves = this.originalMoves;
+    }
+
+  }
+
+  extractFilters(activeElements: HTMLCollection) {
+    let strings = [];
+    for (let index = 0; index < activeElements.length; index++) {
+      let el = activeElements[index];
+      strings.push(el.getAttribute('filter'));
+    }
+    return strings;
   }
 }
 
