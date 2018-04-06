@@ -21,7 +21,6 @@ export class HomePage {
   public url: string = 'https://pokeapi.co/api/v2/';
   public httpError: boolean = false;
   public httpErrorMessage: string = '';
-  public mainErrorMessage: string = '';
   public disconnectToast: any = null;
 
   constructor(
@@ -71,7 +70,6 @@ export class HomePage {
           spinnerNative.style.display = 'none';
           // refreshButton.style.display = 'block';
           this.httpErrorMessage = error.message;
-          this.mainErrorMessage = 'Server is Down';
         });
   }
 

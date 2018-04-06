@@ -30,7 +30,7 @@ export class DetailsPage {
     private network: Network,
     public toast: ToastController
   ) {
-    if(network.type != 'none'){
+    if (network.type != 'none') {
       this.pokeUrl = navParams.get('pokeUrl');
       this.pokeColor = navParams.get('pokeColor');
       this.pokeService.loadAPIResource(this.pokeUrl)
@@ -58,7 +58,7 @@ export class DetailsPage {
             this.httpErrorMessage = error.message;
             this.mainErrorMessage = 'Server is Down';
           });
-    }else{
+    } else {
       let disconnectToast = this.toast.create({
         message: 'You are offline',
         position: 'bottom',
@@ -99,6 +99,11 @@ export class DetailsPage {
         });
         this.pokeDetails.dex = englishTextGroup;
         this.pokeDetails.genus = pokemonGen[0].genus;
+        this.pokeDetails.capture_rate = species.capture_rate;
+        this.pokeDetails.habitat = species.habitat != null ? species.habitat : { url: '', name: 'unknown' };
+        this.pokeDetails.base_happiness = species.base_happiness;
+        this.pokeDetails.generation = species.generation != null ? species.generation : { url: '', name: 'unknown' };
+        this.pokeDetails.evolution_chain = species.evolution_chain;
         return this.pokeDetails;
       },
         error => {
